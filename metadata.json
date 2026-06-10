@@ -1,0 +1,6 @@
+{
+  "name": "Elite Cricket Academy",
+  "description": "Sleek, modern single-page website for an elite cricket coaching academy in Rajpur Sonarpur.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
