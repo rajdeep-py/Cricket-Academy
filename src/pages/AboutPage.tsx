@@ -9,7 +9,7 @@ export default function AboutPage() {
     <div className="pt-20">
       <PageHero
         title="Who We Are"
-        subtitle="The Elite Story"
+        subtitle="The ELITE Story"
         image="assets/hero-cover/about-us.jpg"
       />
       <About isHome={false} />

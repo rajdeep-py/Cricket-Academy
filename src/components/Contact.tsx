@@ -63,7 +63,7 @@ export default function Contact() {
   return (
     <section ref={containerRef} id="contact" className="py-24 bg-white relative max-w-full overflow-hidden z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-red-600 font-semibold tracking-wider uppercase text-sm mb-3">Location & Contact</h2>
           <h3 className="text-4xl md:text-5xl font-display font-bold mb-4 text-slate-900">Connect With Us</h3>
@@ -71,7 +71,7 @@ export default function Contact() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-          
+
           {/* Left Side: Contact Form */}
           <div
             ref={leftColRef}
@@ -82,33 +82,31 @@ export default function Contact() {
 
             <div className="relative z-10">
               <h4 className="text-2xl font-black font-display text-white mb-6">Drop us a line</h4>
-              
+
               {/* Type Toggle */}
               <div className="flex p-1 bg-white/5 rounded-xl mb-8 border border-white/10">
                 <button
                   onClick={() => setEnquiryType('student')}
-                  className={`flex-1 py-3 px-4 rounded-lg font-bold text-sm tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                    enquiryType === 'student' 
-                      ? 'bg-red-600 text-white shadow-lg' 
-                      : 'text-slate-400 hover:text-white hover:bg-white/5'
-                  }`}
+                  className={`flex-1 py-3 px-4 rounded-lg font-bold text-sm tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer ${enquiryType === 'student'
+                    ? 'bg-red-600 text-white shadow-lg'
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    }`}
                 >
                   <User className="w-4 h-4" />
                   Student Enquiry
                 </button>
                 <button
                   onClick={() => setEnquiryType('business')}
-                  className={`flex-1 py-3 px-4 rounded-lg font-bold text-sm tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                    enquiryType === 'business' 
-                      ? 'bg-red-600 text-white shadow-lg' 
-                      : 'text-slate-400 hover:text-white hover:bg-white/5'
-                  }`}
+                  className={`flex-1 py-3 px-4 rounded-lg font-bold text-sm tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer ${enquiryType === 'business'
+                    ? 'bg-red-600 text-white shadow-lg'
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    }`}
                 >
                   <Briefcase className="w-4 h-4" />
                   Business / Partner
                 </button>
               </div>
-              
+
               <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
                 <AnimatePresence mode="wait">
                   {enquiryType === 'student' ? (
@@ -122,8 +120,8 @@ export default function Contact() {
                     >
                       <div>
                         <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Player Name</label>
-                        <input 
-                          type="text" 
+                        <input
+                          type="text"
                           className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-medium"
                           placeholder="e.g. Rahul Sharma"
                         />
@@ -131,16 +129,16 @@ export default function Contact() {
                       <div className="grid grid-cols-2 gap-5">
                         <div>
                           <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Phone No.</label>
-                          <input 
-                            type="tel" 
+                          <input
+                            type="tel"
                             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-medium"
                             placeholder="+91"
                           />
                         </div>
                         <div>
                           <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Player Age</label>
-                          <input 
-                            type="number" 
+                          <input
+                            type="number"
                             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-medium"
                             placeholder="Years"
                           />
@@ -148,7 +146,7 @@ export default function Contact() {
                       </div>
                       <div>
                         <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Preferred Batch Target</label>
-                        <select 
+                        <select
                           className="w-full bg-[#1A1F2E] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-medium appearance-none"
                           defaultValue=""
                         >
@@ -171,16 +169,16 @@ export default function Contact() {
                       <div className="grid grid-cols-2 gap-5">
                         <div>
                           <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Full Name</label>
-                          <input 
-                            type="text" 
+                          <input
+                            type="text"
                             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-medium"
                             placeholder="John Doe"
                           />
                         </div>
                         <div>
                           <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Company / Brand</label>
-                          <input 
-                            type="text" 
+                          <input
+                            type="text"
                             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-medium"
                             placeholder="Company Ltd"
                           />
@@ -189,16 +187,16 @@ export default function Contact() {
                       <div className="grid grid-cols-2 gap-5">
                         <div>
                           <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Work Email</label>
-                          <input 
-                            type="email" 
+                          <input
+                            type="email"
                             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-medium"
                             placeholder="john@company.com"
                           />
                         </div>
                         <div>
                           <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Phone No.</label>
-                          <input 
-                            type="tel" 
+                          <input
+                            type="tel"
                             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-medium"
                             placeholder="+91"
                           />
@@ -206,7 +204,7 @@ export default function Contact() {
                       </div>
                       <div>
                         <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Partnership Details</label>
-                        <textarea 
+                        <textarea
                           rows={3}
                           className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-medium resize-none"
                           placeholder="How can we collaborate together?"
@@ -216,7 +214,7 @@ export default function Contact() {
                   )}
                 </AnimatePresence>
 
-                <button 
+                <button
                   type="submit"
                   className="w-full py-4 mt-4 bg-white hover:bg-red-600 text-slate-900 hover:text-white rounded-xl font-bold text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all duration-300 shadow-xl cursor-pointer"
                 >
@@ -255,23 +253,23 @@ export default function Contact() {
                 </ul>
               </div>
             </div>
-            
+
             <div className="flex flex-wrap gap-6 mb-8">
               <a href="tel:+919876543210" className="flex items-center gap-3 text-slate-600 hover:text-red-600 transition-colors group">
                 <div className="bg-slate-100 group-hover:bg-red-50 p-2.5 rounded-full transition-colors"><Phone className="w-4 h-4" /></div>
                 <span className="font-medium">+91 98765 43210</span>
               </a>
-              <a href="mailto:info@elitecricket.com" className="flex items-center gap-3 text-slate-600 hover:text-red-600 transition-colors group">
+              <a href="mailto:info@ELITEcricket.com" className="flex items-center gap-3 text-slate-600 hover:text-red-600 transition-colors group">
                 <div className="bg-slate-100 group-hover:bg-red-50 p-2.5 rounded-full transition-colors"><Mail className="w-4 h-4" /></div>
-                <span className="font-medium">contact@elitecricket.com</span>
+                <span className="font-medium">contact@ELITEcricket.com</span>
               </a>
             </div>
 
             {/* Map Placeholder */}
             <div className="mt-auto w-full h-[250px] lg:h-[300px] bg-slate-50 rounded-3xl border border-black/5 overflow-hidden relative group">
-              <img 
-                src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop" 
-                alt="Map location" 
+              <img
+                src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop"
+                alt="Map location"
                 className="w-full h-full object-cover opacity-50 grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:opacity-80"
               />
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

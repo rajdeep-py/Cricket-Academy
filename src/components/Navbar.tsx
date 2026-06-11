@@ -27,19 +27,20 @@ export default function Navbar() {
     <>
       <div className="fixed top-0 w-full z-50 flex justify-center pt-4 px-4 pointer-events-none">
         <nav
-          className={`pointer-events-auto transition-all duration-500 rounded-full border ${
-            isScrolled
-              ? 'bg-white/70 backdrop-blur-2xl border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] py-3'
-              : 'bg-transparent border-transparent py-4'
-          } ${isScrolled ? 'w-full max-w-5xl' : 'w-full max-w-7xl'}`}
+          className={`pointer-events-auto transition-all duration-500 rounded-full border ${isScrolled
+            ? 'bg-white/70 backdrop-blur-2xl border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] py-3'
+            : 'bg-transparent border-transparent py-4'
+            } ${isScrolled ? 'w-full max-w-5xl' : 'w-full max-w-7xl'}`}
         >
           <div className="px-4 md:px-8 flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3 relative z-50">
-              <div className={`transition-all duration-300 flex items-center justify-center font-bold text-white italic tracking-tighter rounded-lg bg-gradient-to-tr from-red-600 to-red-800 ${isScrolled ? 'w-8 h-8 text-xs' : 'w-10 h-10 text-sm'}`}>
-                ECA
-              </div>
+              <img
+                src="/assets/images/logo.png"
+                alt="SIL Cricket Academy Logo"
+                className={`transition-all duration-300 object-contain ${isScrolled ? 'w-8 h-8' : 'w-10 h-10'}`}
+              />
               <span className={`font-display font-black tracking-tight text-slate-900 transition-all duration-300 ${isScrolled ? 'text-lg' : 'text-xl'}`}>
-                ELITE CRICKET
+                SIL CRICKET ACADEMY
               </span>
             </Link>
 
@@ -52,13 +53,12 @@ export default function Navbar() {
                     <li key={link.name}>
                       <Link
                         to={link.href}
-                        className={`text-xs font-bold tracking-widest uppercase transition-all duration-300 relative py-2 block ${
-                          isActive ? 'text-red-600' : 'text-slate-500 hover:text-slate-900'
-                        }`}
+                        className={`text-xs font-bold tracking-widest uppercase transition-all duration-300 relative py-2 block ${isActive ? 'text-red-600' : 'text-slate-500 hover:text-slate-900'
+                          }`}
                       >
                         {link.name}
                         {isActive && (
-                          <motion.div 
+                          <motion.div
                             layoutId="nav-pill"
                             className="absolute bottom-0 left-0 right-0 h-[2px] bg-red-600 rounded-full"
                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -114,15 +114,14 @@ export default function Navbar() {
                   <Link
                     to={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`text-3xl font-display font-black tracking-widest uppercase transition-all ${
-                      location.pathname === link.href ? 'text-red-600' : 'text-slate-600 hover:text-slate-900'
-                    }`}
+                    className={`text-3xl font-display font-black tracking-widest uppercase transition-all ${location.pathname === link.href ? 'text-red-600' : 'text-slate-600 hover:text-slate-900'
+                      }`}
                   >
                     {link.name}
                   </Link>
                 </motion.div>
               ))}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.5 }}

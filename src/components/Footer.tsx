@@ -6,14 +6,16 @@ export default function Footer() {
     <footer className="bg-white text-slate-500 py-12 border-t border-black/5 text-sm z-10 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          
+
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="inline-flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-tr from-red-600 to-red-800 rounded-lg flex items-center justify-center font-bold text-white italic tracking-tighter">
-                ECA
-              </div>
+              <img
+                src="/assets/images/logo.png"
+                alt="SIL Cricket Academy Logo"
+                className="w-10 h-10 object-contain"
+              />
               <span className="font-display font-black text-xl tracking-tight text-slate-900">
-                ELITE CRICKET <span className="text-red-600">ACADEMY</span>
+                SIL CRICKET <span className="text-red-600">ACADEMY</span>
               </span>
             </Link>
             <p className="max-w-md mb-6 leading-relaxed">
@@ -58,7 +60,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-black/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-          <p>&copy; {new Date().getFullYear()} Elite Cricket Academy, Rajpur Sonarpur. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} SIL CRICKET ACADEMY Academy, Rajpur Sonarpur. All rights reserved.</p>
           <p>Designed for Excellence.</p>
         </div>
       </div>

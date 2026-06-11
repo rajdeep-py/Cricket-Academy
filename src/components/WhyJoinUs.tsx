@@ -11,7 +11,7 @@ export default function WhyJoinUs() {
     },
     {
       icon: Award,
-      title: "Elite Coaching Staff",
+      title: "ELITE Coaching Staff",
       description: "Learn directly from former First-Class cricketers and BCCI certified level 2 & 3 coaches."
     },
     {
@@ -30,18 +30,18 @@ export default function WhyJoinUs() {
     <section id="why-join-us" className="py-24 bg-white relative z-10 border-b border-black/5">
       <div className="absolute inset-x-0 bottom-0 top-auto h-24 bg-gradient-to-t from-slate-50 to-transparent"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
             className="text-red-600 font-semibold tracking-wider uppercase text-sm mb-3"
           >
-            The Elite Advantage
+            The ELITE Advantage
           </motion.h2>
-          <motion.h3 
+          <motion.h3
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -50,7 +50,7 @@ export default function WhyJoinUs() {
           >
             Why Join Our Academy
           </motion.h3>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}

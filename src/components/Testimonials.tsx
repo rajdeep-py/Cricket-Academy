@@ -22,7 +22,7 @@ export default function Testimonials() {
       id: 2,
       name: "Sneha Das",
       role: "Parent of U-12 Player",
-      text: "We travel from Garia every day just because of the elite facilities at Rajpur Sonarpur. The discipline and tactical awareness my son has developed in the Junior Mavericks program is simply incredible.",
+      text: "We travel from Garia every day just bSCAuse of the SIL facilities at Rajpur Sonarpur. The discipline and tactical awareness my son has developed in the Junior Mavericks program is simply incredible.",
       image: "assets/hero-cover/blogs-cover.jpg",
       isVideo: false
     },
@@ -30,7 +30,7 @@ export default function Testimonials() {
       id: 3,
       name: "Arindam Chatterjee",
       role: "Club Cricketer",
-      text: "The Elite 1-on-1 masterclasses are worth every penny. The ability to practice on turf wickets under floodlights mimicking real match pressure is something very few academies in West Bengal offer.",
+      text: "The SIL 1-on-1 masterclasses are worth every penny. The ability to practice on turf wickets under floodlights mimicking real match pressure is something very few academies in West Bengal offer.",
       image: "assets/hero-cover/blogs-cover.jpg",
       isVideo: true,
       videoId: "OZGtRvYF-A4"
@@ -148,7 +148,7 @@ export default function Testimonials() {
               className="grid grid-cols-1 lg:grid-cols-5 gap-0 rounded-2xl overflow-hidden bg-black/5 backdrop-blur-md shadow-xl border border-black/10"
             >
               {/* Media Section */}
-              <div 
+              <div
                 className="lg:col-span-3 relative h-[300px] lg:h-full min-h-[400px] cursor-pointer overflow-hidden group"
                 onClick={() => {
                   if (testimonials[currentIndex].isVideo) {
@@ -194,45 +194,47 @@ export default function Testimonials() {
       </div>
 
       {/* Video Modal Overlay */}
-      <AnimatePresence>
-        {isPlaying && testimonials[currentIndex].isVideo && testimonials[currentIndex].videoId && createPortal(
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 bg-black/90 backdrop-blur-md"
-            onClick={() => setIsPlaying(false)}
-          >
+      {createPortal(
+        <AnimatePresence>
+          {isPlaying && testimonials[currentIndex].isVideo && testimonials[currentIndex].videoId && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl pointer-events-auto"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 bg-black/90 backdrop-blur-md"
+              onClick={() => setIsPlaying(false)}
             >
-              <iframe
-                className="w-full h-full"
-                src={`https://www.youtube.com/embed/${testimonials[currentIndex].videoId}?autoplay=1`}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              ></iframe>
-
-              {/* Close Button */}
-              <button
-                onClick={() => setIsPlaying(false)}
-                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/85 text-white flex items-center justify-center transition-colors cursor-pointer"
-                aria-label="Close video"
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                className="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl pointer-events-auto"
+                onClick={(e) => e.stopPropagation()}
               >
-                <X className="w-6 h-6" />
-              </button>
+                <iframe
+                  className="w-full h-full"
+                  src={`https://www.youtube.com/embed/${testimonials[currentIndex].videoId}?autoplay=1`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+
+                {/* Close Button */}
+                <button
+                  onClick={() => setIsPlaying(false)}
+                  className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/85 text-white flex items-center justify-center transition-colors cursor-pointer"
+                  aria-label="Close video"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </motion.div>
             </motion.div>
-          </motion.div>,
-          document.body
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }

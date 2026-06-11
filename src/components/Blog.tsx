@@ -83,7 +83,7 @@ export default function Blog({ isHome }: BlogProps) {
     {
       id: 2,
       title: "The Mental Game: Handling Pressure in the Final Over",
-      excerpt: "Cricket is 70% mental. Learn how elite finishers stay calm and process information when the run rate climbs in the death overs.",
+      excerpt: "Cricket is 70% mental. Learn how ELITE finishers stay calm and process information when the run rate climbs in the death overs.",
       category: "Sports Psychology",
       readTime: "6 min read",
       image: "/assets/hero-cover/home-cover.jpg",
@@ -102,7 +102,7 @@ export default function Blog({ isHome }: BlogProps) {
       readTime: "5 min read",
       image: "/assets/hero-cover/contact-us-cover.png",
       content: [
-        "Fast bowlers are the engines of a cricket team, subjecting their bodies to forces up to ten times their body weight during delivery. To sustain pace, prevent injury, and bounce back for consecutive spells, your nutritional foundation must be flawless. Here is how our elite pacers fuel their engines.",
+        "Fast bowlers are the engines of a cricket team, subjecting their bodies to forces up to ten times their body weight during delivery. To sustain pace, prevent injury, and bounce back for consecutive spells, your nutritional foundation must be flawless. Here is how our ELITE pacers fuel their engines.",
         "Hydration is the single most critical factor. Dehydration of just 2% can lead to a 10% drop in bowling velocity and an increased risk of side strains. We recommend consuming at least 3-4 liters of water daily, supplemented with electrolyte formulations containing sodium and magnesium on match days to prevent muscle cramping.",
         "Pre-Match Fueling: 24 to 36 hours before a multi-day game or a high-intensity T20 spell, increase your carbohydrate intake with complex sources like sweet potatoes, oats, and brown rice. Three hours before play, consume a lean protein and simple carb meal—such as grilled chicken breast with white rice or banana porridge—to provide sustained energy.",
         "During the Match: Between spells, sip on an isotonic drink and consume small, quick-digesting carb sources. Bananas, energy gels, or dried dates are perfect for keeping blood glucose levels stable without loading your digestive system.",
@@ -150,7 +150,7 @@ export default function Blog({ isHome }: BlogProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -162,7 +162,7 @@ export default function Blog({ isHome }: BlogProps) {
           </motion.div>
 
           {isHome ? (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -197,8 +197,8 @@ export default function Blog({ isHome }: BlogProps) {
           <div className="relative overflow-hidden w-full h-full pb-8">
             <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-8 no-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               {posts.map((post, idx) => (
-                <motion.div 
-                  key={post.id} 
+                <motion.div
+                  key={post.id}
                   initial={{ opacity: 0, y: 35 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
@@ -233,96 +233,98 @@ export default function Blog({ isHome }: BlogProps) {
       </div>
 
       {/* Full screen popup modal for detailed blog article */}
-      <AnimatePresence>
-        {selectedPost && createPortal(
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-md overflow-y-auto animate-fade-in"
-            onClick={() => setSelectedPost(null)}
-          >
+      {createPortal(
+        <AnimatePresence>
+          {selectedPost && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 30 }}
-              transition={{ type: "spring", duration: 0.5 }}
-              className="relative w-full max-w-5xl bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row h-[90vh] md:h-[80vh] pointer-events-auto"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-md overflow-y-auto animate-fade-in"
+              onClick={() => setSelectedPost(null)}
             >
-              {/* Left Panel: Overview & Image */}
-              <div className="md:w-2/5 relative bg-slate-955 text-white flex flex-col justify-end min-h-[250px] md:min-h-0">
-                <div className="absolute inset-0">
-                  <img
-                    src={selectedPost.image}
-                    alt={selectedPost.title}
-                    className="w-full h-full object-cover opacity-60"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-955 via-slate-955/70 to-transparent" />
-                </div>
-                <div className="relative z-10 p-8 md:p-10 flex flex-col justify-end h-full">
-                  <div>
-                    <span className="bg-red-600 text-white text-xs font-bold uppercase tracking-widest py-1.5 px-3 rounded-full">
-                      {selectedPost.category}
-                    </span>
-                    <h2 className="text-2xl md:text-3xl font-display font-bold mt-6 leading-tight">
-                      {selectedPost.title}
-                    </h2>
-                  </div>
-                  <div className="mt-6 pt-6 border-t border-white/20 flex items-center gap-4 text-sm text-slate-300">
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-red-500" />
-                      <span>{selectedPost.readTime}</span>
-                    </div>
-                    <span>•</span>
-                    <span>By Senior Coach</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Panel: Detailed Article */}
-              <div className="md:w-3/5 p-8 md:p-12 overflow-y-auto flex flex-col justify-between bg-slate-50">
-                <div>
-                  <h3 className="text-xs font-bold text-red-600 uppercase tracking-widest mb-3">Overview & Insights</h3>
-                  <p className="text-slate-700 text-base md:text-lg font-medium leading-relaxed mb-8 border-l-4 border-red-600 pl-4">
-                    {selectedPost.excerpt}
-                  </p>
-                  
-                  <hr className="border-black/5 mb-8" />
-                  
-                  <div className="text-slate-600 text-sm md:text-base leading-relaxed space-y-6">
-                    {selectedPost.content.map((paragraph, index) => (
-                      <p key={index} className="text-slate-600 font-sans">
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-12 pt-6 border-t border-black/5 flex justify-between items-center">
-                  <span className="text-xs text-slate-400">© 2026 Cricket Academy Insights</span>
-                  <button
-                    onClick={() => setSelectedPost(null)}
-                    className="px-6 py-2.5 bg-red-600 hover:bg-slate-955 text-white rounded-full font-bold text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 cursor-pointer"
-                  >
-                    Close Article
-                  </button>
-                </div>
-              </div>
-
-              {/* Floating Close Button */}
-              <button
-                onClick={() => setSelectedPost(null)}
-                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 md:bg-black/5 md:hover:bg-black/10 backdrop-blur-md flex items-center justify-center text-white md:text-slate-800 transition-colors cursor-pointer"
-                aria-label="Close modal"
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 30 }}
+                transition={{ type: "spring", duration: 0.5 }}
+                className="relative w-full max-w-5xl bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row h-[90vh] md:h-[80vh] pointer-events-auto"
+                onClick={(e) => e.stopPropagation()}
               >
-                <X className="w-6 h-6" />
-              </button>
+                {/* Left Panel: Overview & Image */}
+                <div className="md:w-2/5 relative bg-slate-950 text-white flex flex-col justify-end min-h-[250px] md:min-h-0">
+                  <div className="absolute inset-0">
+                    <img
+                      src={selectedPost.image}
+                      alt={selectedPost.title}
+                      className="w-full h-full object-cover opacity-60"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-955/70 to-transparent" />
+                  </div>
+                  <div className="relative z-10 p-8 md:p-10 flex flex-col justify-end h-full">
+                    <div>
+                      <span className="bg-red-600 text-white text-xs font-bold uppercase tracking-widest py-1.5 px-3 rounded-full">
+                        {selectedPost.category}
+                      </span>
+                      <h2 className="text-2xl md:text-3xl font-display font-bold mt-6 leading-tight">
+                        {selectedPost.title}
+                      </h2>
+                    </div>
+                    <div className="mt-6 pt-6 border-t border-white/20 flex items-center gap-4 text-sm text-slate-300">
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-red-500" />
+                        <span>{selectedPost.readTime}</span>
+                      </div>
+                      <span>•</span>
+                      <span>By Senior Coach</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Panel: Detailed Article */}
+                <div className="md:w-3/5 p-8 md:p-12 overflow-y-auto flex flex-col justify-between bg-slate-50">
+                  <div>
+                    <h3 className="text-xs font-bold text-red-600 uppercase tracking-widest mb-3">Overview & Insights</h3>
+                    <p className="text-slate-700 text-base md:text-lg font-medium leading-relaxed mb-8 border-l-4 border-red-600 pl-4">
+                      {selectedPost.excerpt}
+                    </p>
+
+                    <hr className="border-black/5 mb-8" />
+
+                    <div className="text-slate-600 text-sm md:text-base leading-relaxed space-y-6">
+                      {selectedPost.content.map((paragraph, index) => (
+                        <p key={index} className="text-slate-600 font-sans">
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-12 pt-6 border-t border-black/5 flex justify-between items-center">
+                    <span className="text-xs text-slate-400">© 2026 Cricket Academy Insights</span>
+                    <button
+                      onClick={() => setSelectedPost(null)}
+                      className="px-6 py-2.5 bg-red-600 hover:bg-slate-955 text-white rounded-full font-bold text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 cursor-pointer"
+                    >
+                      Close Article
+                    </button>
+                  </div>
+                </div>
+
+                {/* Floating Close Button */}
+                <button
+                  onClick={() => setSelectedPost(null)}
+                  className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 md:bg-black/5 md:hover:bg-black/10 backdrop-blur-md flex items-center justify-center text-white md:text-slate-800 transition-colors cursor-pointer"
+                  aria-label="Close modal"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </motion.div>
             </motion.div>
-          </motion.div>,
-          document.body
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }

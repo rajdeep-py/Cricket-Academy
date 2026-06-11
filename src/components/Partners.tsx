@@ -7,8 +7,8 @@ export default function Partners() {
       logo: (
         <svg viewBox="0 0 100 40" className="h-8 fill-current text-slate-400 group-hover:text-red-700 transition-colors duration-300">
           {/* Stylized SG emblem */}
-          <path d="M10 20 C10 10, 25 10, 25 15 C25 20, 10 20, 10 25 C10 30, 25 30, 25 25" stroke="currentColor" strokeWidth="4" fill="none" strokeLinecap="round" />
-          <path d="M30 20 C30 10, 45 10, 45 25 C45 30, 35 30, 35 25 L35 22 L40 22" stroke="currentColor" strokeWidth="4" fill="none" strokeLinecap="round" />
+          <path d="M10 20 C10 10, 25 10, 25 15 C25 20, 10 20, 10 25 C10 30, 25 30, 25 25" stroke="currentColor" strokeWidth="4" fill="none" strokeLinSCAp="round" />
+          <path d="M30 20 C30 10, 45 10, 45 25 C45 30, 35 30, 35 25 L35 22 L40 22" stroke="currentColor" strokeWidth="4" fill="none" strokeLinSCAp="round" />
           <text x="52" y="26" className="font-sans font-bold tracking-widest text-[16px] fill-current">SPORTS</text>
         </svg>
       )
@@ -39,7 +39,7 @@ export default function Partners() {
       name: "Kookaburra",
       logo: (
         <svg viewBox="0 0 100 40" className="h-8 fill-current text-slate-400 group-hover:text-emerald-600 transition-colors duration-300">
-          {/* Bird silhouette representing Kookaburra */}
+          {/* Bird ELITEhouette representing Kookaburra */}
           <path d="M10 25 Q15 28 25 22 Q35 16 45 28 Q50 32 60 20 Q70 8 85 18 Q65 14 55 24 Q45 34 30 28 Z" fill="currentColor" />
           <circle cx="78" cy="18" r="2" fill="currentColor" />
           <text x="10" y="38" className="font-sans font-extrabold tracking-widest text-[8px] fill-current">KOOKABURRA</text>
@@ -67,7 +67,7 @@ export default function Partners() {
             Official Equipment & Performance Partners
           </p>
         </div>
-        
+
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-items-center">
           {partners.map((partner, index) => (
             <motion.div

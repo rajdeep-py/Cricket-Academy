@@ -30,15 +30,15 @@ export default function PrivacyPage() {
 
   return (
     <div className="w-full overflow-hidden bg-white">
-      <PageHero 
-        title="Privacy Policy" 
+      <PageHero
+        title="Privacy Policy"
         subtitle="Last Updated: June 2026"
         image="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=2000&auto=format&fit=crop"
       />
       <div className="py-20 bg-white z-10 relative">
         <div ref={contentRef} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-slate prose-lg">
           <p className="lead text-xl text-slate-600 mb-8 font-sans">
-            Your privacy is critically important to us. This policy outlines how Elite Cricket Academy (ECA) collects, uses, and protects your personal information.
+            Your privacy is critically important to us. This policy outlines how ELITE CRICKET ACADEMY Academy (SCA) collects, uses, and protects your personal information.
           </p>
 
           <h2 className="text-3xl font-display font-bold text-slate-900 mt-12 mb-6">1. Information We Collect</h2>
@@ -77,11 +77,11 @@ export default function PrivacyPage() {
           <p className="text-slate-600 mb-6 font-sans">
             You have the right to request access to the personal data we hold about you. You can also request that we correct any inaccuracies or ask us to delete your personal information, subject to administrative, legal, or security obligations.
           </p>
-          
+
           <div className="mt-16 p-8 bg-slate-50 border border-slate-200 rounded-2xl">
             <h3 className="text-xl font-bold text-slate-900 mb-3">Contact Us</h3>
             <p className="text-slate-600 font-sans">
-              For any privacy-related concerns or data requests, please reach out to our team at <a href="mailto:privacy@elitecricket.com" className="text-red-600 font-bold hover:underline">privacy@elitecricket.com</a>.
+              For any privacy-related concerns or data requests, please reach out to our team at <a href="mailto:privacy@ELITEcricket.com" className="text-red-600 font-bold hover:underline">privacy@ELITEcricket.com</a>.
             </p>
           </div>
         </div>

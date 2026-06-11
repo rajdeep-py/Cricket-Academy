@@ -30,8 +30,8 @@ export default function TermsPage() {
 
   return (
     <div className="w-full overflow-hidden bg-white">
-      <PageHero 
-        title="Terms of Service" 
+      <PageHero
+        title="Terms of Service"
         subtitle="Last Updated: June 2026"
         image="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=2000&auto=format&fit=crop"
       />
@@ -43,7 +43,7 @@ export default function TermsPage() {
 
           <h2 className="text-3xl font-display font-bold text-slate-900 mt-12 mb-6">1. Acceptance of Terms</h2>
           <p className="text-slate-600 mb-6 font-sans">
-            By registering for any program, booking a facility, or using the services provided by Elite Cricket Academy (ECA), you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you may not access our services.
+            By registering for any program, booking a facility, or using the services provided by ELITE CRICKET ACADEMY Academy (SCA), you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you may not access our services.
           </p>
 
           <h2 className="text-3xl font-display font-bold text-slate-900 mt-12 mb-6">2. Registration and Fees</h2>
@@ -66,10 +66,10 @@ export default function TermsPage() {
 
           <h2 className="text-3xl font-display font-bold text-slate-900 mt-12 mb-6">4. Safety and Liability</h2>
           <p className="text-slate-600 mb-6 font-sans">
-            While ECA takes every precaution to ensure the safety of its players, cricket is a sport that carries inherent risks of injury.
+            While SCA takes every prSCAution to ensure the safety of its players, cricket is a sport that carries inherent risks of injury.
           </p>
           <ul className="list-disc pl-6 space-y-3 text-slate-600 mb-6 font-sans">
-            <li>ECA is not liable for any personal injury, loss, or damage to personal property occurring on its premises.</li>
+            <li>SCA is not liable for any personal injury, loss, or damage to personal property occurring on its premises.</li>
             <li>Players must wear proper protective equipment (helmet, pads, gloves, box) when batting against a hard ball.</li>
             <li>Medical conditions must be disclosed during registration.</li>
           </ul>
@@ -78,11 +78,11 @@ export default function TermsPage() {
           <p className="text-slate-600 mb-6 font-sans">
             We reserve the right, at our sole discretion, to modify or replace these Terms at any time. We will provide reasonable notice of any material changes.
           </p>
-          
+
           <div className="mt-16 p-8 bg-slate-50 border border-slate-200 rounded-2xl">
             <h3 className="text-xl font-bold text-slate-900 mb-3">Contact Us</h3>
             <p className="text-slate-600 font-sans">
-              If you have any questions about these Terms, please contact us at <a href="mailto:legal@elitecricket.com" className="text-red-600 font-bold hover:underline">legal@elitecricket.com</a>.
+              If you have any questions about these Terms, please contact us at <a href="mailto:legal@ELITEcricket.com" className="text-red-600 font-bold hover:underline">legal@ELITEcricket.com</a>.
             </p>
           </div>
         </div>

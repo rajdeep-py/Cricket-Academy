@@ -138,7 +138,7 @@ export default function About({ isHome }: AboutProps) {
                   Located in the heart of Rajpur Sonarpur, we believe that world-class talent requires world-class infrastructure. Our academy is designed to bridge the gap between amateur passion and professional execution.
                 </p>
                 <p>
-                  With individualized, data-driven player tracking, advanced bowling machines, and elite coaching staff, we focus on technical perfection, mental toughness, and tactical mastery.
+                  With individualized, data-driven player tracking, advanced bowling machines, and ELITE coaching staff, we focus on technical perfection, mental toughness, and tactical mastery.
                 </p>
               </div>
 

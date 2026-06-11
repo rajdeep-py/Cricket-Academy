@@ -68,7 +68,7 @@ export default function Programs({ isHome }: ProgramsProps) {
           title: "Comprehensive Progress Reports",
           subtitle: "Tracking Growth Month-Over-Month",
           description: "We monitor speed, reaction time, and technique. Parents receive a detailed progress dashboard tracking their child's confidence, motor skills, and technical improvements.",
-          image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1974&auto=format&fit=crop",
+          image: "https://images.unsplash.com/photo-1506126613408-SCA07ce68773?q=80&w=1974&auto=format&fit=crop",
           highlight: "Performance Dashboard"
         },
         {
@@ -98,7 +98,7 @@ export default function Programs({ isHome }: ProgramsProps) {
         {
           title: "Engineered for Competitive Cricket",
           subtitle: "For the Next Generation of Pros",
-          description: "Ages 13-19 is the critical window for elite refinement. We transition players from local club nets to state-level competitive training programs.",
+          description: "Ages 13-19 is the critical window for ELITE refinement. We transition players from local club nets to state-level competitive training programs.",
           image: "https://images.unsplash.com/photo-1540747737956-3787293ac287?q=80&w=1974&auto=format&fit=crop",
           highlight: "Tactical & Mental Shift"
         },
@@ -126,7 +126,7 @@ export default function Programs({ isHome }: ProgramsProps) {
       ]
     },
     {
-      name: 'Elite 1-on-1',
+      name: 'ELITE 1-on-1',
       age: 'All Ages',
       price: '₹11,000',
       period: '/month',
@@ -155,7 +155,7 @@ export default function Programs({ isHome }: ProgramsProps) {
           highlight: "150km/h Bowling Simulators"
         },
         {
-          title: "Elite Tournament Preparation",
+          title: "ELITE Tournament Preparation",
           subtitle: "Bio-analysis & Scouting Readiness",
           description: "Whether prepping for Ranji trials, IPL auctions, or club leagues, we tailor a physical, biomechanical, and tactical conditioning package.",
           image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2070&auto=format&fit=crop",
@@ -164,9 +164,9 @@ export default function Programs({ isHome }: ProgramsProps) {
         {
           title: "Unlock Your Ultimate Potential",
           subtitle: "₹11,000 / Month",
-          description: "Flexible scheduling, complete video tracking, custom nutritionist plans, and priority access to all turf facilities. Step up to elite cricket.",
+          description: "Flexible scheduling, complete video tracking, custom nutritionist plans, and priority access to all turf facilities. Step up to ELITE CRICKET ACADEMY.",
           image: "https://images.unsplash.com/photo-1540747737956-3787293ac287?q=80&w=1974&auto=format&fit=crop",
-          highlight: "₹11,000/mo. All-Access Elite Pass"
+          highlight: "₹11,000/mo. All-Access ELITE Pass"
         }
       ]
     },
@@ -253,7 +253,7 @@ export default function Programs({ isHome }: ProgramsProps) {
             <h2 className="text-red-600 font-semibold tracking-wider uppercase text-sm mb-3">Programs & Fees</h2>
             <h3 className="text-4xl md:text-5xl font-display font-bold mb-6">Invest in Your Athletic Legacy</h3>
             <p className="text-xl text-slate-500">
-              Choose the right tier to match your ambition. From mastering basics to elite professional conditioning.
+              Choose the right tier to match your ambition. From mastering basics to ELITE professional conditioning.
             </p>
           </motion.div>
         </div>
@@ -267,8 +267,8 @@ export default function Programs({ isHome }: ProgramsProps) {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.5 }}
               className={`relative rounded-2xl p-8 transition-all duration-300 ${tier.popular
-                  ? 'bg-gradient-to-b from-black/10 to-red-800/20 border border-red-800/40 shadow-[0_0_30px_rgba(153,27,27,0.1)] md:-translate-y-4'
-                  : 'bg-black/5 border border-black/10 hover:bg-black/10'
+                ? 'bg-gradient-to-b from-black/10 to-red-800/20 border border-red-800/40 shadow-[0_0_30px_rgba(153,27,27,0.1)] md:-translate-y-4'
+                : 'bg-black/5 border border-black/10 hover:bg-black/10'
                 }`}
             >
               {tier.popular && (
@@ -301,8 +301,8 @@ export default function Programs({ isHome }: ProgramsProps) {
               <button
                 onClick={() => openPopup(tier)}
                 className={`w-full py-4 rounded-full font-bold text-sm transition-all cursor-pointer ${tier.popular
-                    ? 'bg-red-800 text-white hover:bg-yellow-400'
-                    : 'bg-black/10 text-slate-900 hover:bg-black/20'
+                  ? 'bg-red-800 text-white hover:bg-yellow-400'
+                  : 'bg-black/10 text-slate-900 hover:bg-black/20'
                   }`}>
                 Select Plan
               </button>
@@ -326,136 +326,138 @@ export default function Programs({ isHome }: ProgramsProps) {
       </div>
 
       {/* Full-screen GSAP/Apple-style Interactive Pricing Popup */}
-      <AnimatePresence>
-        {selectedTier && createPortal(
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 bg-slate-950/90 backdrop-blur-xl"
-            onClick={() => setSelectedTier(null)}
-          >
+      {createPortal(
+        <AnimatePresence>
+          {selectedTier && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-              className="relative w-full max-w-6xl h-full md:h-[85vh] bg-slate-950 text-white rounded-none md:rounded-3xl border border-white/10 flex flex-col justify-between overflow-hidden shadow-2xl pointer-events-auto"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 bg-slate-955/90 backdrop-blur-xl"
+              onClick={() => setSelectedTier(null)}
             >
-              {/* Top Navigation Bar */}
-              <div className="p-6 md:p-8 flex justify-between items-center border-b border-white/15 bg-slate-950/80 backdrop-blur-md z-30">
-                <div>
-                  <h4 className="text-xs font-black uppercase text-red-500 tracking-widest">{selectedTier.age} Program</h4>
-                  <h3 className="text-xl md:text-2xl font-display font-black text-white leading-none mt-1">{selectedTier.name}</h3>
-                </div>
-                
-                <button
-                  onClick={() => setSelectedTier(null)}
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
-                  aria-label="Close details"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                className="relative w-full max-w-6xl h-full md:h-[85vh] bg-slate-950 text-white rounded-none md:rounded-3xl border border-white/10 flex flex-col justify-between overflow-hidden shadow-2xl pointer-events-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Top Navigation Bar */}
+                <div className="p-6 md:p-8 flex justify-between items-center border-b border-white/15 bg-slate-950/80 backdrop-blur-md z-30">
+                  <div>
+                    <h4 className="text-xs font-black uppercase text-red-500 tracking-widest">{selectedTier.age} Program</h4>
+                    <h3 className="text-xl md:text-2xl font-display font-black text-white leading-none mt-1">{selectedTier.name}</h3>
+                  </div>
 
-              {/* Horizontal Slider Track */}
-              <div className="w-full grow relative overflow-hidden flex bg-slate-950 z-20">
-                <div
-                  ref={slidesContainerRef}
-                  className="flex w-full h-full"
-                >
-                  {selectedTier.slides.map((slide, sIdx) => (
-                    <div
-                      key={sIdx}
-                      className={`w-full shrink-0 h-full flex flex-col md:flex-row relative slide-${sIdx} overflow-y-auto md:overflow-hidden`}
-                    >
-                      {/* Left: Product Image Panel */}
-                      <div className="w-full md:w-1/2 relative h-[35vh] md:h-full shrink-0 bg-slate-900">
-                        <img
-                          src={slide.image}
-                          alt={slide.title}
-                          className="w-full h-full object-cover opacity-60"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-slate-950 via-transparent to-transparent z-10" />
-                        <div className="absolute top-6 left-6 z-20 bg-red-600/90 text-white text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-md">
-                          {slide.highlight}
+                  <button
+                    onClick={() => setSelectedTier(null)}
+                    className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
+                    aria-label="Close details"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+
+                {/* Horizontal Slider Track */}
+                <div className="w-full grow relative overflow-hidden flex bg-slate-950 z-20">
+                  <div
+                    ref={slidesContainerRef}
+                    className="flex w-full h-full"
+                  >
+                    {selectedTier.slides.map((slide, sIdx) => (
+                      <div
+                        key={sIdx}
+                        className={`w-full shrink-0 h-full flex flex-col md:flex-row relative slide-${sIdx} overflow-y-auto md:overflow-hidden`}
+                      >
+                        {/* Left: Product Image Panel */}
+                        <div className="w-full md:w-1/2 relative h-[35vh] md:h-full shrink-0 bg-slate-900">
+                          <img
+                            src={slide.image}
+                            alt={slide.title}
+                            className="w-full h-full object-cover opacity-60"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-slate-955 via-transparent to-transparent z-10" />
+                          <div className="absolute top-6 left-6 z-20 bg-red-600/90 text-white text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-md">
+                            {slide.highlight}
+                          </div>
+                        </div>
+
+                        {/* Right: Storytelling Text Panel */}
+                        <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-slate-955 z-20 shrink-0">
+                          <div className="max-w-md">
+                            <span className="text-red-500 font-bold uppercase tracking-widest text-xs mb-3 block animate-item">
+                              Section {sIdx + 1} of 4
+                            </span>
+                            <h2 className="text-3xl md:text-5xl font-display font-black leading-none mb-4 animate-item text-white">
+                              {slide.title}
+                            </h2>
+                            <h3 className="text-lg md:text-xl font-medium text-slate-300 mb-6 animate-item">
+                              {slide.subtitle}
+                            </h3>
+                            <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 animate-item">
+                              {slide.description}
+                            </p>
+                            {sIdx === 3 && (
+                              <button
+                                onClick={() => {
+                                  setSelectedTier(null);
+                                  navigate('/contact', { state: { plan: selectedTier.name } });
+                                }}
+                                className="animate-item px-8 py-4 bg-red-800 hover:bg-yellow-400 text-white hover:text-slate-955 rounded-full font-black uppercase tracking-wider text-sm transition-all shadow-lg hover:scale-105 duration-300 cursor-pointer"
+                              >
+                                Enroll in {selectedTier.name} — {selectedTier.price}{selectedTier.period}
+                              </button>
+                            )}
+                          </div>
                         </div>
                       </div>
-
-                      {/* Right: Storytelling Text Panel */}
-                      <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-slate-955 z-20 shrink-0">
-                        <div className="max-w-md">
-                          <span className="text-red-500 font-bold uppercase tracking-widest text-xs mb-3 block animate-item">
-                            Section {sIdx + 1} of 4
-                          </span>
-                          <h2 className="text-3xl md:text-5xl font-display font-black leading-none mb-4 animate-item text-white">
-                            {slide.title}
-                          </h2>
-                          <h3 className="text-lg md:text-xl font-medium text-slate-300 mb-6 animate-item">
-                            {slide.subtitle}
-                          </h3>
-                          <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 animate-item">
-                            {slide.description}
-                          </p>
-                          {sIdx === 3 && (
-                            <button
-                              onClick={() => {
-                                setSelectedTier(null);
-                                navigate('/contact', { state: { plan: selectedTier.name } });
-                              }}
-                              className="animate-item px-8 py-4 bg-red-800 hover:bg-yellow-400 text-white hover:text-slate-950 rounded-full font-black uppercase tracking-wider text-sm transition-all shadow-lg hover:scale-105 duration-300 cursor-pointer"
-                            >
-                              Enroll in {selectedTier.name} — {selectedTier.price}{selectedTier.period}
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* Bottom controls panel */}
-              <div className="p-6 md:p-8 flex justify-between items-center border-t border-white/15 bg-slate-955/80 backdrop-blur-md z-30">
-                {/* Bullet Page Indicators */}
-                <div className="flex gap-2.5">
-                  {selectedTier.slides.map((_, i) => (
+                {/* Bottom controls panel */}
+                <div className="p-6 md:p-8 flex justify-between items-center border-t border-white/15 bg-slate-955/80 backdrop-blur-md z-30">
+                  {/* Bullet Page Indicators */}
+                  <div className="flex gap-2.5">
+                    {selectedTier.slides.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setCurrentSlide(i)}
+                        className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${i === currentSlide ? 'w-8 bg-red-600' : 'w-2.5 bg-white/20 hover:bg-white/40'}`}
+                        aria-label={`Go to slide ${i + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Left/Right buttons */}
+                  <div className="flex gap-4">
                     <button
-                      key={i}
-                      onClick={() => setCurrentSlide(i)}
-                      className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${i === currentSlide ? 'w-8 bg-red-600' : 'w-2.5 bg-white/20 hover:bg-white/40'}`}
-                      aria-label={`Go to slide ${i + 1}`}
-                    />
-                  ))}
+                      onClick={prevSlide}
+                      disabled={currentSlide === 0}
+                      className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${currentSlide === 0 ? 'border-white/10 text-white/25 cursor-not-allowed' : 'border-white/20 hover:bg-white/10 text-white cursor-pointer'}`}
+                      aria-label="Previous slide"
+                    >
+                      <ChevronLeft className="w-6 h-6" />
+                    </button>
+                    <button
+                      onClick={nextSlide}
+                      disabled={currentSlide === selectedTier.slides.length - 1}
+                      className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${currentSlide === selectedTier.slides.length - 1 ? 'border-white/10 text-white/25 cursor-not-allowed' : 'border-white/20 hover:bg-white/10 text-white cursor-pointer'}`}
+                      aria-label="Next slide"
+                    >
+                      <ChevronRight className="w-6 h-6" />
+                    </button>
+                  </div>
                 </div>
 
-                {/* Left/Right buttons */}
-                <div className="flex gap-4">
-                  <button
-                    onClick={prevSlide}
-                    disabled={currentSlide === 0}
-                    className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${currentSlide === 0 ? 'border-white/10 text-white/25 cursor-not-allowed' : 'border-white/20 hover:bg-white/10 text-white cursor-pointer'}`}
-                    aria-label="Previous slide"
-                  >
-                    <ChevronLeft className="w-6 h-6" />
-                  </button>
-                  <button
-                    onClick={nextSlide}
-                    disabled={currentSlide === selectedTier.slides.length - 1}
-                    className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${currentSlide === selectedTier.slides.length - 1 ? 'border-white/10 text-white/25 cursor-not-allowed' : 'border-white/20 hover:bg-white/10 text-white cursor-pointer'}`}
-                    aria-label="Next slide"
-                  >
-                    <ChevronRight className="w-6 h-6" />
-                  </button>
-                </div>
-              </div>
-
+              </motion.div>
             </motion.div>
-          </motion.div>,
-          document.body
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }
