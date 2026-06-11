@@ -6,23 +6,23 @@ export default function Coaches() {
     {
       name: "Vikram Rathour",
       role: "Head Coach & Founder",
-      experience: "Ex-First Class Player, BCCI Level 3",
+      experience: "Bengal Ranji Trophy Veteran, BCCI Level 3",
       image: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=1974&auto=format&fit=crop",
-      bio: "With over 15 years of competitive cricket experience, Vikram brings a wealth of tactical knowledge and modern technique adaptations to the academy."
+      bio: "With over 18 years of competitive cricket experience representing Bengal in the Ranji Trophy, Vikram has captained top CAB First Division clubs like East Bengal and Mohun Bagan. He brings deep tactical knowledge of local league progression."
     },
     {
       name: "Sanjay Das",
       role: "Senior Bowling Coach",
-      experience: "Ranji Trophy, BCCI Level 2",
+      experience: "Ex-Bengal Speedster, BCCI Level 2",
       image: "https://images.unsplash.com/photo-1555319985-78e0ea521cd9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-      bio: "Specializing in pace & swing biomechanics, Sanjay has successfully trained over 20 state-level fast bowlers."
+      bio: "Specializing in pace & swing biomechanics for Kolkata clay pitches, Sanjay played Ranji Trophy for Bengal and has successfully trained over 20 state-level fast bowlers who play in CAB division leagues."
     },
     {
       name: "Devendra Singh",
       role: "Head of Spin Bowling",
-      experience: "BCCI Level 2",
+      experience: "Town Club Spin Mentor, BCCI Level 2",
       image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop",
-      bio: "A master of flight and turn, Devendra helps young spinners master their stock deliveries and develop unplayable variations."
+      bio: "A master of flight and turn who has taken 400+ wickets in Kolkata's CAB First Division league. Devendra helps young spinners adapt to spinning tracks, master variations (carrom ball, doosra), and dominate local batsmen."
     }
   ];
 

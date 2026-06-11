@@ -25,8 +25,8 @@ export default function Hero() {
         >
           <div className="flex items-center gap-3 mb-6">
             <span className="h-[2px] w-8 bg-red-600"></span>
-            <span className="text-red-600 text-xs font-bold tracking-[0.3em] uppercase">
-              Rajpur Sonarpur, West Bengal
+            <span className="text-red-600 text-xs font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase">
+              Kolkata's Premier Cricket Hub • Rajpur Sonarpur
             </span>
           </div>
           
@@ -36,8 +36,8 @@ export default function Hero() {
             <span className="block text-red-800 italic font-medium tracking-tight mt-2 text-5xl md:text-7xl">Dominate the Pitch.</span>
           </h1>
           
-          <p className="text-slate-600 text-base md:text-xl max-w-lg leading-relaxed mb-10 font-medium drop-shadow-xl border-l-2 pl-4 border-red-600">
-            Train under elite coaches with state-of-the-art facilities designed to build the champions of tomorrow. Your athletic legacy starts here.
+          <p className="text-slate-600 text-base md:text-xl max-w-xl leading-relaxed mb-10 font-medium drop-shadow-xl border-l-2 pl-4 border-red-600">
+            Train under Bengal Ranji Trophy veterans with state-of-the-art turf pitches & monsoon-ready indoor facilities. Build your path to CAB Division leagues and state selection.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-5">

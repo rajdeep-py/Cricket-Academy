@@ -47,17 +47,20 @@ export default function About({ isHome }: AboutProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-red-600 font-semibold tracking-wider uppercase text-sm mb-3">About The Academy</h2>
+              <h2 className="text-red-600 font-semibold tracking-wider uppercase text-sm mb-3">Kolkata's Premier Cricket Academy</h2>
               <h3 className="text-4xl md:text-5xl font-display font-bold leading-tight mb-6">
-                Crafting Cricketing Excellence from the <span className="text-slate-900">Grassroots.</span>
+                Crafting Cricketing Excellence from Bengal's <span className="text-slate-900">Grassroots.</span>
               </h3>
 
-              <div className="space-y-4 text-slate-500 text-lg mb-10 leading-relaxed">
+              <div className="space-y-4 text-slate-500 text-base md:text-lg mb-10 leading-relaxed">
                 <p>
-                  Located in the heart of Rajpur Sonarpur, we believe that world-class talent requires world-class infrastructure. Our academy is designed to bridge the gap between amateur passion and professional execution.
+                  Nestled in Rajpur Sonarpur (Kolkata), our academy is dedicated to nurturing raw athletic potential and refining it to meet the prestigious standards of the <strong>Cricket Association of Bengal (CAB)</strong> leagues. From local para matches to the iconic turf of Eden Gardens, we bridge the gap between street cricket and professional club structures.
                 </p>
                 <p>
-                  With individualized, data-driven player tracking, advanced bowling machines, and elite coaching staff, we focus on technical perfection, mental toughness, and tactical mastery.
+                  We are deeply integrated with Kolkata's local league system, providing direct pathways for outstanding students to play for local CAB 1st & 2nd Division clubs. Our program includes comprehensive preparation for district-level trials (South 24 Parganas) and state U-16, U-19, and Ranji Trophy pathways.
+                </p>
+                <p>
+                  Our infrastructure is specifically designed to battle local climate challenges, featuring high-quality clay turf wickets that simulate typical CAB league pitches, along with fully air-conditioned indoor net facilities to ensure practice continues completely uninterrupted during the intense Kolkata monsoon season (June to September).
                 </p>
               </div>
 

@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ScrollToTop from '../components/ScrollToTop';
 
 import Home from './Home';
 import AboutPage from './AboutPage';
@@ -16,6 +17,8 @@ export default function Layout() {
       {/* Background Ambient Glows */}
       <div className="fixed top-[-100px] left-[-100px] w-96 h-96 bg-red-600 rounded-full blur-[150px] opacity-10 pointer-events-none z-0"></div>
       <div className="fixed bottom-[-100px] right-[-100px] w-96 h-96 bg-red-800 rounded-full blur-[150px] opacity-10 pointer-events-none z-0"></div>
+
+      <ScrollToTop />
 
       <div className="relative z-10 flex flex-col min-h-screen">
         <Navbar />

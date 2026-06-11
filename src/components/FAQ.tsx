@@ -8,19 +8,27 @@ export default function FAQ() {
   const faqs = [
     {
       question: "What equipment do I need to bring for the trial?",
-      answer: "Please bring your own personal protective gear (abdomen guard, batting pads, gloves, helmet) and a bat. If you do not have gear, we will provide academy equipment for your first session."
+      answer: "Please bring your own personal protective gear (abdomen guard, batting pads, gloves, helmet) and a bat. If you do not have gear, we will gladly provide academy equipment for your first session."
     },
     {
-      question: "Do you provide pick-up and drop-off facilities?",
-      answer: "Currently, we do not provide dedicated transportation. However, our academy is conveniently located just 5 minutes from the Sonarpur Railway Station, and local transport is readily available."
+      question: "How easily accessible is the academy from central Kolkata?",
+      answer: "Very accessible! We are located just 5 minutes from the Sonarpur Junction Railway Station (Sealdah South Section). Players traveling from Garia, Jadavpur, Ballygunge, or Tollygunge can reach us via train in 10-15 minutes. Alternatively, you can take the Metro to Kavi Subhash (New Garia) and take a direct auto or bus."
     },
     {
-      question: "Can beginners join the academy?",
-      answer: "Absolutely! Our 'Junior Mavericks' and customized beginner batches are perfectly designed for absolute beginners. We focus heavily on basics before moving to hard ball practice."
+      question: "How do you help players get selected for CAB league clubs?",
+      answer: "Our head coach Vikram Rathour and senior selectors regularly invite scouts from prominent CAB 1st & 2nd Division clubs to observe our nets and practice matches. Outstanding players are recommended for club trials and division registrations."
     },
     {
-      question: "Is the academy operational during the monsoon?",
-      answer: "Yes. Our facility includes a fully equipped, air-conditioned indoor net area that allows practice to continue completely uninterrupted regardless of the weather outside."
+      question: "Do we get to practice on real turf wickets?",
+      answer: "Yes, we believe leather-ball preparation should be authentic. We have 4 high-quality clay turf wickets prepared by experienced ground curators, mimicking the typical pitch conditions you will face in CAB tournament matches. We also maintain concrete wickets for speed reaction and wet-conditions training."
+    },
+    {
+      question: "Can absolute beginners join?",
+      answer: "Absolutely! Our 'Junior Mavericks' batch is specifically designed for children with zero prior experience. We focus on fun motor skill development, basic grip, stance, and hand-eye coordination before advancing to leather-ball play."
+    },
+    {
+      question: "Is the academy operational during the heavy Kolkata monsoon?",
+      answer: "Yes, 100%. We understand that Kolkata monsoons can wash out up to three months of critical training. That is why we built a fully-enclosed, air-conditioned indoor facility equipped with bowling machines, ensuring our pace battery and batsmen keep training regardless of the weather outside."
     }
   ];
 
