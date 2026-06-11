@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Play, ChevronLeft, ChevronRight, Quote, X } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Testimonials() {
   const testimonials = [
@@ -34,6 +38,9 @@ export default function Testimonials() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const mainCardRef = useRef<HTMLDivElement>(null);
 
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -66,23 +73,52 @@ export default function Testimonials() {
     };
   }, [isPlaying]);
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header Animation
+      gsap.from(headerRef.current ? headerRef.current.children : [], {
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        },
+        opacity: 0,
+        x: -20,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out"
+      });
+
+      // Main Testimonial Card Animation
+      gsap.from(mainCardRef.current, {
+        scrollTrigger: {
+          trigger: mainCardRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        },
+        opacity: 0,
+        scale: 0.96,
+        y: 30,
+        duration: 1,
+        ease: "power2.out"
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="testimonials" className="py-24 bg-white relative overflow-hidden">
+    <section ref={containerRef} id="testimonials" className="py-24 bg-white relative overflow-hidden z-10 border-b border-black/5">
       {/* Background glow */}
       <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-red-800/10 rounded-full blur-[100px] transform translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="max-w-2xl"
-          >
+        <div ref={headerRef} className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
             <h2 className="text-red-600 font-semibold tracking-wider uppercase text-sm mb-3">Testimonials</h2>
-            <h3 className="text-4xl md:text-5xl font-display font-bold">Voices of Champions</h3>
-          </motion.div>
+            <h3 className="text-4xl md:text-5xl font-display font-bold text-slate-900">Voices of Champions</h3>
+          </div>
 
           <div className="flex gap-4">
             <button
@@ -100,7 +136,7 @@ export default function Testimonials() {
           </div>
         </div>
 
-        <div className="relative min-h-[500px]">
+        <div ref={mainCardRef} className="relative min-h-[500px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -112,7 +148,7 @@ export default function Testimonials() {
             >
               {/* Media Section */}
               <div 
-                className="lg:col-span-3 relative h-[300px] lg:h-full min-h-[400px] cursor-pointer"
+                className="lg:col-span-3 relative h-[300px] lg:h-full min-h-[400px] cursor-pointer overflow-hidden group"
                 onClick={() => {
                   if (testimonials[currentIndex].isVideo) {
                     setIsPlaying(true);
@@ -122,7 +158,7 @@ export default function Testimonials() {
                 <img
                   src={testimonials[currentIndex].image}
                   alt={testimonials[currentIndex].name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center group transition-colors hover:bg-black/50">
                   {testimonials[currentIndex].isVideo && (

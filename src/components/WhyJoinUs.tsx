@@ -5,23 +5,23 @@ export default function WhyJoinUs() {
   const features = [
     {
       icon: Target,
-      title: "Biomechanical Analysis",
-      description: "We utilize high-speed cameras and state-of-the-art software to break down actions, ensuring safety and peak technical accuracy."
+      title: "Data-Driven Approach",
+      description: "We use high-speed cameras and bio-mechanical analysis to trace every flaw and master every technique."
     },
     {
       icon: Award,
-      title: "CAB League Pathways",
-      description: "Direct talent pipeline and affiliations with top CAB First & Second Division clubs, providing a clear path to professional league play."
+      title: "Elite Coaching Staff",
+      description: "Learn directly from former First-Class cricketers and BCCI certified level 2 & 3 coaches."
     },
     {
       icon: Shield,
-      title: "Kolkata League Prep",
-      description: "We simulate realistic CAB match scenarios, teaching batsmen to build long innings and bowlers to execute spells under local conditions."
+      title: "Match Confidence",
+      description: "We simulate high-pressure scenarios during practice sessions to ensure you perform when it matters the most."
     },
     {
       icon: Zap,
-      title: "Monsoon-Ready Nets",
-      description: "Featuring 4 clay turf pitches and fully enclosed, air-conditioned indoor net facilities to keep practices running during heavy rain season."
+      title: "State-of-the-art Infrastructure",
+      description: "4 turf pitches, fully-equipped A/C indoor nets for monsoon practice, and advanced bowling machines."
     }
   ];
 

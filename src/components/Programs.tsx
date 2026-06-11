@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Check, ArrowRight, X, Send } from 'lucide-react';
+import { Check, ArrowRight, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { gsap } from 'gsap';
 
-interface ProgramsProps {
-  isHome?: boolean;
+interface Slide {
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  highlight: string;
 }
 
 interface Tier {
@@ -15,48 +20,20 @@ interface Tier {
   description: string;
   features: string[];
   popular: boolean;
+  slides: Slide[];
+}
+
+interface ProgramsProps {
+  isHome?: boolean;
 }
 
 export default function Programs({ isHome }: ProgramsProps) {
   const navigate = useNavigate();
-  const [selectedPlan, setSelectedPlan] = useState<Tier | null>(null);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', experience: 'Beginner' });
+  const [selectedTier, setSelectedTier] = useState<Tier | null>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slidesContainerRef = useRef<HTMLDivElement>(null);
 
-  // Close modal on escape key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setSelectedPlan(null);
-        setFormSubmitted(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  // Prevent scroll when modal is open
-  useEffect(() => {
-    if (selectedPlan) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [selectedPlan]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setSelectedPlan(null);
-      setFormSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', experience: 'Beginner' });
-    }, 3500); // Auto close after 3.5 seconds
-  };
-  const tiers = [
+  const tiers: Tier[] = [
     {
       name: 'Junior Mavericks',
       age: 'Ages 6-12',
@@ -71,6 +48,36 @@ export default function Programs({ isHome }: ProgramsProps) {
         'Soft ball matches',
       ],
       popular: false,
+      slides: [
+        {
+          title: "The Fun-First Philosophy",
+          subtitle: "Where Passion Meets Foundation",
+          description: "For ages 6-12, cricket shouldn't feel like a chore. We focus on building agility, raw hand-eye coordination, and a deep love for the sport using interactive games and soft balls.",
+          image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067&auto=format&fit=crop",
+          highlight: "Agility & Core Motor Skills"
+        },
+        {
+          title: "Technique Starter Pack",
+          subtitle: "3 Focused Sessions Per Week",
+          description: "Learn the textbook batting stance, the basic bowling grip, and proper throwing biomechanics. Our BCCI certified coaches correct errors before they become habits.",
+          image: "https://images.unsplash.com/photo-1593341646782-e0b495cff86d?q=80&w=1974&auto=format&fit=crop",
+          highlight: "Stance & Grip Mechanics"
+        },
+        {
+          title: "Comprehensive Progress Reports",
+          subtitle: "Tracking Growth Month-Over-Month",
+          description: "We monitor speed, reaction time, and technique. Parents receive a detailed progress dashboard tracking their child's confidence, motor skills, and technical improvements.",
+          image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1974&auto=format&fit=crop",
+          highlight: "Performance Dashboard"
+        },
+        {
+          title: "Start Your Cricket Legacy",
+          subtitle: "Only ₹250 / Month",
+          description: "Equip your child with the discipline, fitness, and skills to excel not just in cricket, but in all spheres of life. Secure their trial spot today.",
+          image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2070&auto=format&fit=crop",
+          highlight: "₹250/mo. All-Inclusive Trial"
+        }
+      ]
     },
     {
       name: 'Pro Prospects',
@@ -86,6 +93,36 @@ export default function Programs({ isHome }: ProgramsProps) {
         'Strength & nutrition plans',
       ],
       popular: true,
+      slides: [
+        {
+          title: "Engineered for Competitive Cricket",
+          subtitle: "For the Next Generation of Pros",
+          description: "Ages 13-19 is the critical window for elite refinement. We transition players from local club nets to state-level competitive training programs.",
+          image: "https://images.unsplash.com/photo-1540747737956-3787293ac287?q=80&w=1974&auto=format&fit=crop",
+          highlight: "Tactical & Mental Shift"
+        },
+        {
+          title: "Video Biomechanical Analysis",
+          subtitle: "Unlocking Speed & Precision",
+          description: "Our high-speed cameras record your bowling action and batting swing. Coaches overlay your video with pro actions to identify bio-mechanical micro-errors instantly.",
+          image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=2070&auto=format&fit=crop",
+          highlight: "High-Speed Frame Capture"
+        },
+        {
+          title: "Match Simulation Under Lights",
+          subtitle: "Taming Real Pressure",
+          description: "Net sessions are good, but match play is where stars are born. Practice on real turf wickets under lights with simulated target-defense scenarios.",
+          image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2070&auto=format&fit=crop",
+          highlight: "Turf Practice & Simulated Overs"
+        },
+        {
+          title: "Earn Your State Colors",
+          subtitle: "Only ₹450 / Month",
+          description: "Includes 5 sessions a week, strength and nutrition guides, and direct matches. Bring your ambition, we supply the training.",
+          image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067&auto=format&fit=crop",
+          highlight: "₹450/mo. Professional Development"
+        }
+      ]
     },
     {
       name: 'Elite 1-on-1',
@@ -101,8 +138,106 @@ export default function Programs({ isHome }: ProgramsProps) {
         'Advanced bowling machine access',
       ],
       popular: false,
+      slides: [
+        {
+          title: "Personalized Cricket Masterclass",
+          subtitle: "One-on-One Dedicated Mentorship",
+          description: "The absolute pinnacle of cricket training. A dedicated senior pro coach works exclusively with you, customizing every drill, run-up, and stroke.",
+          image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2080&auto=format&fit=crop",
+          highlight: "100% Coach Attention"
+        },
+        {
+          title: "Precision Machine Drills",
+          subtitle: "Repeat to Perfection",
+          description: "Get face-to-face with bowling machines capable of projecting speeds up to 150km/h with realistic swing, spin, and bounce variations.",
+          image: "https://images.unsplash.com/photo-1593341646782-e0b495cff86d?q=80&w=1974&auto=format&fit=crop",
+          highlight: "150km/h Bowling Simulators"
+        },
+        {
+          title: "Elite Tournament Preparation",
+          subtitle: "Bio-analysis & Scouting Readiness",
+          description: "Whether prepping for Ranji trials, IPL auctions, or club leagues, we tailor a physical, biomechanical, and tactical conditioning package.",
+          image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2070&auto=format&fit=crop",
+          highlight: "Scouting & Trial Preparation"
+        },
+        {
+          title: "Unlock Your Ultimate Potential",
+          subtitle: "₹11,000 / Month",
+          description: "Flexible scheduling, complete video tracking, custom nutritionist plans, and priority access to all turf facilities. Step up to elite cricket.",
+          image: "https://images.unsplash.com/photo-1540747737956-3787293ac287?q=80&w=1974&auto=format&fit=crop",
+          highlight: "₹11,000/mo. All-Access Elite Pass"
+        }
+      ]
     },
   ];
+
+  const nextSlide = () => {
+    if (selectedTier && currentSlide < selectedTier.slides.length - 1) {
+      setCurrentSlide((prev) => prev + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide((prev) => prev - 1);
+    }
+  };
+
+  // Keyboard navigation & body scroll lock
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedTier(null);
+      } else if (e.key === 'ArrowRight') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    };
+
+    if (selectedTier) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [selectedTier, currentSlide]);
+
+  // GSAP slide horizontal translation & item staggers
+  useEffect(() => {
+    if (!selectedTier) return;
+
+    // Slide horizontal transition animation
+    gsap.to(slidesContainerRef.current, {
+      xPercent: -currentSlide * 100,
+      duration: 0.8,
+      ease: "power4.inOut"
+    });
+
+    // Reset non-active slide item states
+    const slidesCount = selectedTier.slides.length;
+    for (let i = 0; i < slidesCount; i++) {
+      if (i !== currentSlide) {
+        gsap.set(`.slide-${i} .animate-item`, { opacity: 0, y: 25 });
+      }
+    }
+
+    // Active slide entry stagger animation
+    gsap.fromTo(`.slide-${currentSlide} .animate-item`,
+      { opacity: 0, y: 25 },
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: "power2.out", delay: 0.25 }
+    );
+  }, [currentSlide, selectedTier]);
+
+  const openPopup = (tier: Tier) => {
+    setCurrentSlide(0);
+    setSelectedTier(tier);
+  };
 
   return (
     <section id="programs" className="py-24 bg-slate-50 relative border-t border-black/5">
@@ -163,8 +298,8 @@ export default function Programs({ isHome }: ProgramsProps) {
               </ul>
 
               <button
-                onClick={() => setSelectedPlan(tier)}
-                className={`w-full py-4 rounded-full font-bold text-sm transition-all cursor-pointer hover:scale-105 active:scale-95 ${tier.popular
+                onClick={() => openPopup(tier)}
+                className={`w-full py-4 rounded-full font-bold text-sm transition-all cursor-pointer ${tier.popular
                     ? 'bg-red-800 text-white hover:bg-yellow-400'
                     : 'bg-black/10 text-slate-900 hover:bg-black/20'
                   }`}>
@@ -189,194 +324,132 @@ export default function Programs({ isHome }: ProgramsProps) {
         )}
       </div>
 
-      {/* Premium Pricing Plan Modal */}
+      {/* Full-screen GSAP/Apple-style Interactive Pricing Popup */}
       <AnimatePresence>
-        {selectedPlan && (
+        {selectedTier && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-md overflow-y-auto animate-fade-in"
-            onClick={() => {
-              setSelectedPlan(null);
-              setFormSubmitted(false);
-            }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-6 bg-slate-950/90 backdrop-blur-xl"
+            onClick={() => setSelectedTier(null)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 30 }}
-              transition={{ type: "spring", duration: 0.5 }}
-              className="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row h-[90vh] md:h-[75vh] pointer-events-auto"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-6xl h-full md:h-[85vh] bg-slate-950 text-white rounded-none md:rounded-3xl border border-white/10 flex flex-col justify-between overflow-hidden shadow-2xl pointer-events-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Left Column: Plan Summary */}
-              <div className="md:w-5/12 bg-slate-950 text-white p-8 md:p-10 flex flex-col justify-between relative overflow-hidden">
-                {/* Background glow effects */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-red-800/20 rounded-full blur-[80px] pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-red-600/10 rounded-full blur-[80px] pointer-events-none" />
-
-                <div className="relative z-10">
-                  <span className="bg-red-800 border border-red-600/30 text-white text-[10px] font-bold uppercase tracking-widest py-1 px-3 rounded-full">
-                    Selected Tier
-                  </span>
-                  <h3 className="text-3xl font-display font-bold mt-6 text-white leading-tight">
-                    {selectedPlan.name}
-                  </h3>
-                  <p className="text-red-500 text-xs font-semibold tracking-wider mt-1 uppercase">
-                    {selectedPlan.age}
-                  </p>
-
-                  <div className="flex items-baseline gap-1 mt-8 mb-6">
-                    <span className="text-5xl font-black text-white">{selectedPlan.price}</span>
-                    <span className="text-slate-400 text-sm font-medium">{selectedPlan.period}</span>
-                  </div>
-
-                  <p className="text-slate-300 text-sm leading-relaxed mb-8">
-                    {selectedPlan.description}
-                  </p>
-
-                  <hr className="border-white/10 my-6" />
-
-                  <ul className="space-y-4">
-                    {selectedPlan.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-3 text-slate-300 text-sm">
-                        <Check className="w-4 h-4 text-red-500 shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+              {/* Top Navigation Bar */}
+              <div className="p-6 md:p-8 flex justify-between items-center border-b border-white/15 bg-slate-950/80 backdrop-blur-md z-30">
+                <div>
+                  <h4 className="text-xs font-black uppercase text-red-500 tracking-widest">{selectedTier.age} Program</h4>
+                  <h3 className="text-xl md:text-2xl font-display font-black text-white leading-none mt-1">{selectedTier.name}</h3>
                 </div>
-
-                <div className="relative z-10 mt-8 text-xs text-slate-500">
-                  Secure Callback Registry • Cricket Academy
-                </div>
+                
+                <button
+                  onClick={() => setSelectedTier(null)}
+                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
+                  aria-label="Close details"
+                >
+                  <X className="w-6 h-6" />
+                </button>
               </div>
 
-              {/* Right Column: Interaction Form or Success Message */}
-              <div className="md:w-7/12 p-8 md:p-12 flex flex-col justify-center bg-slate-50 relative">
-                <AnimatePresence mode="wait">
-                  {!formSubmitted ? (
-                    <motion.div
-                      key="form-view"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.3 }}
-                      className="w-full"
+              {/* Horizontal Slider Track */}
+              <div className="w-full grow relative overflow-hidden flex bg-slate-950 z-20">
+                <div
+                  ref={slidesContainerRef}
+                  className="flex w-full h-full"
+                >
+                  {selectedTier.slides.map((slide, sIdx) => (
+                    <div
+                      key={sIdx}
+                      className={`w-full shrink-0 h-full flex flex-col md:flex-row relative slide-${sIdx} overflow-y-auto md:overflow-hidden`}
                     >
-                      <h4 className="text-2xl font-display font-bold text-slate-900 mb-2">
-                        Get Started Today
-                      </h4>
-                      <p className="text-slate-500 text-sm mb-8">
-                        Register your details to request a callback & book your free trial slot.
-                      </p>
-
-                      <form onSubmit={handleSubmit} className="space-y-5">
-                        <div>
-                          <label className="block text-slate-700 text-xs font-bold uppercase tracking-wider mb-2">
-                            Full Name
-                          </label>
-                          <input
-                            type="text"
-                            required
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="w-full px-4 py-3 rounded-xl border border-black/10 bg-white text-slate-900 text-sm font-sans focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all"
-                            placeholder="e.g. Rahul Sharma"
-                          />
+                      {/* Left: Product Image Panel */}
+                      <div className="w-full md:w-1/2 relative h-[35vh] md:h-full shrink-0 bg-slate-900">
+                        <img
+                          src={slide.image}
+                          alt={slide.title}
+                          className="w-full h-full object-cover opacity-60"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-slate-950 via-transparent to-transparent z-10" />
+                        <div className="absolute top-6 left-6 z-20 bg-red-600/90 text-white text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-md">
+                          {slide.highlight}
                         </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div>
-                            <label className="block text-slate-700 text-xs font-bold uppercase tracking-wider mb-2">
-                              Phone Number
-                            </label>
-                            <input
-                              type="tel"
-                              required
-                              value={formData.phone}
-                              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                              className="w-full px-4 py-3 rounded-xl border border-black/10 bg-white text-slate-900 text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all"
-                              placeholder="e.g. +91 98765 43210"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-slate-700 text-xs font-bold uppercase tracking-wider mb-2">
-                              Email Address
-                            </label>
-                            <input
-                              type="email"
-                              required
-                              value={formData.email}
-                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                              className="w-full px-4 py-3 rounded-xl border border-black/10 bg-white text-slate-900 text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all"
-                              placeholder="e.g. name@example.com"
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="block text-slate-700 text-xs font-bold uppercase tracking-wider mb-2">
-                            Experience Level
-                          </label>
-                          <select
-                            value={formData.experience}
-                            onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
-                            className="w-full px-4 py-3 rounded-xl border border-black/10 bg-white text-slate-900 text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all cursor-pointer"
-                          >
-                            <option value="Beginner">Beginner (Soft Ball / No Academy Play)</option>
-                            <option value="Intermediate">Intermediate (Played Leather Ball / Club)</option>
-                            <option value="Advanced">Advanced (Played District / State Trials)</option>
-                          </select>
-                        </div>
-
-                        <button
-                          type="submit"
-                          className="w-full mt-6 py-4 bg-red-600 hover:bg-slate-950 text-white rounded-full font-bold text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 cursor-pointer shadow-lg hover:shadow-red-800/10"
-                        >
-                          Request Callback
-                          <Send className="w-4 h-4" />
-                        </button>
-                      </form>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="success-view"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.4 }}
-                      className="text-center py-8 flex flex-col items-center justify-center"
-                    >
-                      <div className="w-20 h-20 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-500 mb-6 shadow-xl shadow-emerald-500/5">
-                        <Check className="w-10 h-10 stroke-[3]" />
                       </div>
-                      <h4 className="text-3xl font-display font-black text-slate-900 mb-3">
-                        Request Registered!
-                      </h4>
-                      <p className="text-slate-500 text-sm max-w-sm mx-auto leading-relaxed">
-                        Thank you, <strong className="text-slate-800">{formData.name}</strong>. Our head admissions counselor will call you within 24 hours to book your free trial slot.
-                      </p>
-                      <p className="text-xs text-slate-400 mt-12 animate-pulse">
-                        Closing window...
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+
+                      {/* Right: Storytelling Text Panel */}
+                      <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-slate-950 z-20 shrink-0">
+                        <div className="max-w-md">
+                          <span className="text-red-500 font-bold uppercase tracking-widest text-xs mb-3 block animate-item">
+                            Section {sIdx + 1} of 4
+                          </span>
+                          <h2 className="text-3xl md:text-5xl font-display font-black leading-none mb-4 animate-item text-white">
+                            {slide.title}
+                          </h2>
+                          <h3 className="text-lg md:text-xl font-medium text-slate-300 mb-6 animate-item">
+                            {slide.subtitle}
+                          </h3>
+                          <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 animate-item">
+                            {slide.description}
+                          </p>
+                          {sIdx === 3 && (
+                            <button
+                              onClick={() => {
+                                setSelectedTier(null);
+                                navigate('/contact', { state: { plan: selectedTier.name } });
+                              }}
+                              className="animate-item px-8 py-4 bg-red-800 hover:bg-yellow-400 text-white hover:text-slate-950 rounded-full font-black uppercase tracking-wider text-sm transition-all shadow-lg hover:scale-105 duration-300 cursor-pointer"
+                            >
+                              Enroll in {selectedTier.name} — {selectedTier.price}{selectedTier.period}
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              {/* Close Button */}
-              <button
-                onClick={() => {
-                  setSelectedPlan(null);
-                  setFormSubmitted(false);
-                }}
-                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 md:bg-black/5 md:hover:bg-black/10 backdrop-blur-md flex items-center justify-center text-white md:text-slate-800 transition-colors cursor-pointer"
-                aria-label="Close form"
-              >
-                <X className="w-6 h-6" />
-              </button>
+              {/* Bottom controls panel */}
+              <div className="p-6 md:p-8 flex justify-between items-center border-t border-white/15 bg-slate-950/80 backdrop-blur-md z-30">
+                {/* Bullet Page Indicators */}
+                <div className="flex gap-2.5">
+                  {selectedTier.slides.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentSlide(i)}
+                      className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${i === currentSlide ? 'w-8 bg-red-600' : 'w-2.5 bg-white/20 hover:bg-white/40'}`}
+                      aria-label={`Go to slide ${i + 1}`}
+                    />
+                  ))}
+                </div>
+
+                {/* Left/Right buttons */}
+                <div className="flex gap-4">
+                  <button
+                    onClick={prevSlide}
+                    disabled={currentSlide === 0}
+                    className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${currentSlide === 0 ? 'border-white/10 text-white/25 cursor-not-allowed' : 'border-white/20 hover:bg-white/10 text-white cursor-pointer'}`}
+                    aria-label="Previous slide"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    disabled={currentSlide === selectedTier.slides.length - 1}
+                    className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${currentSlide === selectedTier.slides.length - 1 ? 'border-white/10 text-white/25 cursor-not-allowed' : 'border-white/20 hover:bg-white/10 text-white cursor-pointer'}`}
+                    aria-label="Next slide"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
+                </div>
+              </div>
+
             </motion.div>
           </motion.div>
         )}

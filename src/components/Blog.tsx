@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Clock, ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export interface Post {
   id: number;
@@ -25,7 +29,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onClick, className = "" }) =>
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     onClick={onClick}
-    className={`group bg-black/5 backdrop-blur-md border border-black/10 rounded-2xl overflow-hidden hover:bg-black/10 transition-all pointer-events-auto flex flex-col h-full cursor-pointer ${className}`}
+    className={`blog-card group bg-black/5 backdrop-blur-md border border-black/10 rounded-2xl overflow-hidden hover:bg-black/10 transition-all pointer-events-auto flex flex-col h-full cursor-pointer ${className}`}
   >
     <div className="aspect-[16/10] overflow-hidden relative shrink-0">
       <img
@@ -115,6 +119,9 @@ export default function Blog({ isHome }: BlogProps) {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const listContainerRef = useRef<HTMLDivElement>(null);
 
   const nextPost = () => {
     setCurrentIndex((prev) => (prev + 1) % posts.length);
@@ -147,20 +154,49 @@ export default function Blog({ isHome }: BlogProps) {
     };
   }, [selectedPost]);
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header Animation
+      gsap.from(headerRef.current ? headerRef.current.children : [], {
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        },
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out"
+      });
+
+      // Cards Grid/Scroll List Animation
+      gsap.from(".blog-card", {
+        scrollTrigger: {
+          trigger: listContainerRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        },
+        opacity: 0,
+        y: 35,
+        duration: 0.8,
+        stagger: 0.12,
+        ease: "power2.out"
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="blog" className="py-24 bg-slate-50 border-t border-black/5">
+    <section ref={containerRef} id="blog" className="py-24 bg-slate-50 border-t border-black/5 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-2xl"
-          >
+        <div ref={headerRef} className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className="max-w-2xl">
             <h2 className="text-red-600 font-semibold tracking-wider uppercase text-sm mb-3">Academy Insights</h2>
-            <h3 className="text-4xl md:text-5xl font-display font-bold">Master the Theory of the Game</h3>
-          </motion.div>
+            <h3 className="text-4xl md:text-5xl font-display font-bold text-slate-900">Master the Theory of the Game</h3>
+          </div>
 
           {isHome ? (
             <div className="flex items-center gap-6">
@@ -178,23 +214,18 @@ export default function Blog({ isHome }: BlogProps) {
                   <ChevronRight className="w-6 h-6" />
                 </button>
               </div>
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="hidden md:block"
-              >
-                <Link to="/blog" className="inline-flex items-center gap-2 text-red-800 hover:text-yellow-400 font-semibold group transition-colors">
+              <div>
+                <Link to="/blog" className="hidden md:inline-flex items-center gap-2 text-red-800 hover:text-yellow-400 font-semibold group transition-colors">
                   View All Articles
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
-              </motion.div>
+              </div>
             </div>
           ) : null}
         </div>
 
         {isHome ? (
-          <div className="relative overflow-hidden w-full h-full pb-8">
+          <div ref={listContainerRef} className="relative overflow-hidden w-full h-full pb-8">
             <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-8 no-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               {posts.map((post) => (
                 <div key={post.id} className="min-w-[85vw] md:min-w-[400px] snap-center">
@@ -209,7 +240,7 @@ export default function Blog({ isHome }: BlogProps) {
              `}</style>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div ref={listContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post) => (
               <PostCard key={post.id} post={post} onClick={() => setSelectedPost(post)} />
             ))}
@@ -224,7 +255,7 @@ export default function Blog({ isHome }: BlogProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-md overflow-y-auto animate-fade-in"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-md overflow-y-auto animate-fade-in"
             onClick={() => setSelectedPost(null)}
           >
             <motion.div
@@ -288,7 +319,7 @@ export default function Blog({ isHome }: BlogProps) {
                   <span className="text-xs text-slate-400">© 2026 Cricket Academy Insights</span>
                   <button
                     onClick={() => setSelectedPost(null)}
-                    className="px-6 py-2.5 bg-red-600 hover:bg-slate-950 text-white rounded-full font-bold text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 cursor-pointer"
+                    className="px-6 py-2.5 bg-red-600 hover:bg-slate-955 text-white rounded-full font-bold text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 cursor-pointer"
                   >
                     Close Article
                   </button>

@@ -1,33 +1,80 @@
-import { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MapPin, Phone, Mail, Clock, Send, Briefcase, User } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Contact() {
   const [enquiryType, setEnquiryType] = useState<'student' | 'business'>('student');
+  const containerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const rightColRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header Animation
+      gsap.from(headerRef.current ? headerRef.current.children : [], {
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        },
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out"
+      });
+
+      // Left Column (Form) Animation
+      gsap.from(leftColRef.current, {
+        scrollTrigger: {
+          trigger: leftColRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        },
+        opacity: 0,
+        x: -40,
+        duration: 1,
+        ease: "power2.out"
+      });
+
+      // Right Column Animation
+      gsap.from(rightColRef.current ? rightColRef.current.children : [], {
+        scrollTrigger: {
+          trigger: rightColRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        },
+        opacity: 0,
+        x: 40,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power2.out"
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="contact" className="py-24 bg-white relative max-w-full overflow-hidden">
+    <section ref={containerRef} id="contact" className="py-24 bg-white relative max-w-full overflow-hidden z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-red-600 font-semibold tracking-wider uppercase text-sm mb-3">Location & Contact</h2>
-            <h3 className="text-4xl md:text-5xl font-display font-bold mb-4">Connect With Us</h3>
-            <p className="text-slate-500">Whether you're an aspiring player or looking for a business partnership, we're ready to talk.</p>
-          </motion.div>
+        <div ref={headerRef} className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-red-600 font-semibold tracking-wider uppercase text-sm mb-3">Location & Contact</h2>
+          <h3 className="text-4xl md:text-5xl font-display font-bold mb-4 text-slate-900">Connect With Us</h3>
+          <p className="text-slate-500">Whether you're an aspiring player or looking for a business partnership, we're ready to talk.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           
           {/* Left Side: Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+          <div
+            ref={leftColRef}
             className="bg-slate-900 border border-slate-800 p-8 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden"
           >
             {/* Background accent */}
@@ -40,7 +87,7 @@ export default function Contact() {
               <div className="flex p-1 bg-white/5 rounded-xl mb-8 border border-white/10">
                 <button
                   onClick={() => setEnquiryType('student')}
-                  className={`flex-1 py-3 px-4 rounded-lg font-bold text-sm tracking-wide transition-all flex items-center justify-center gap-2 ${
+                  className={`flex-1 py-3 px-4 rounded-lg font-bold text-sm tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer ${
                     enquiryType === 'student' 
                       ? 'bg-red-600 text-white shadow-lg' 
                       : 'text-slate-400 hover:text-white hover:bg-white/5'
@@ -51,7 +98,7 @@ export default function Contact() {
                 </button>
                 <button
                   onClick={() => setEnquiryType('business')}
-                  className={`flex-1 py-3 px-4 rounded-lg font-bold text-sm tracking-wide transition-all flex items-center justify-center gap-2 ${
+                  className={`flex-1 py-3 px-4 rounded-lg font-bold text-sm tracking-wide transition-all flex items-center justify-center gap-2 cursor-pointer ${
                     enquiryType === 'business' 
                       ? 'bg-red-600 text-white shadow-lg' 
                       : 'text-slate-400 hover:text-white hover:bg-white/5'
@@ -100,7 +147,7 @@ export default function Contact() {
                         </div>
                       </div>
                       <div>
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Preferred Batch target</label>
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Preferred Batch Target</label>
                         <select 
                           className="w-full bg-[#1A1F2E] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all font-medium appearance-none"
                           defaultValue=""
@@ -171,20 +218,18 @@ export default function Contact() {
 
                 <button 
                   type="submit"
-                  className="w-full py-4 mt-4 bg-white hover:bg-red-600 text-slate-900 hover:text-white rounded-xl font-bold text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all duration-300 shadow-xl"
+                  className="w-full py-4 mt-4 bg-white hover:bg-red-600 text-slate-900 hover:text-white rounded-xl font-bold text-sm tracking-widest uppercase flex items-center justify-center gap-2 transition-all duration-300 shadow-xl cursor-pointer"
                 >
                   {enquiryType === 'student' ? 'Submit Enquiry' : 'Send Proposal'}
                   <Send className="w-4 h-4" />
                 </button>
               </form>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right Side: Info & Map */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+          <div
+            ref={rightColRef}
             className="flex flex-col h-full"
           >
             <div className="grid sm:grid-cols-2 gap-8 mb-8">
@@ -240,7 +285,7 @@ export default function Contact() {
               </div>
             </div>
 
-          </motion.div>
+          </div>
 
         </div>
       </div>

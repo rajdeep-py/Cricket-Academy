@@ -1,65 +1,87 @@
-import { motion } from 'motion/react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HelpCircle } from 'lucide-react';
-import { useState } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const faqListRef = useRef<HTMLDivElement>(null);
 
   const faqs = [
     {
       question: "What equipment do I need to bring for the trial?",
-      answer: "Please bring your own personal protective gear (abdomen guard, batting pads, gloves, helmet) and a bat. If you do not have gear, we will gladly provide academy equipment for your first session."
+      answer: "Please bring your own personal protective gear (abdomen guard, batting pads, gloves, helmet) and a bat. If you do not have gear, we will provide academy equipment for your first session."
     },
     {
-      question: "How easily accessible is the academy from central Kolkata?",
-      answer: "Very accessible! We are located just 5 minutes from the Sonarpur Junction Railway Station (Sealdah South Section). Players traveling from Garia, Jadavpur, Ballygunge, or Tollygunge can reach us via train in 10-15 minutes. Alternatively, you can take the Metro to Kavi Subhash (New Garia) and take a direct auto or bus."
+      question: "Do you provide pick-up and drop-off facilities?",
+      answer: "Currently, we do not provide dedicated transportation. However, our academy is conveniently located just 5 minutes from the Sonarpur Railway Station, and local transport is readily available."
     },
     {
-      question: "How do you help players get selected for CAB league clubs?",
-      answer: "Our head coach Vikram Rathour and senior selectors regularly invite scouts from prominent CAB 1st & 2nd Division clubs to observe our nets and practice matches. Outstanding players are recommended for club trials and division registrations."
+      question: "Can beginners join the academy?",
+      answer: "Absolutely! Our 'Junior Mavericks' and customized beginner batches are perfectly designed for absolute beginners. We focus heavily on basics before moving to hard ball practice."
     },
     {
-      question: "Do we get to practice on real turf wickets?",
-      answer: "Yes, we believe leather-ball preparation should be authentic. We have 4 high-quality clay turf wickets prepared by experienced ground curators, mimicking the typical pitch conditions you will face in CAB tournament matches. We also maintain concrete wickets for speed reaction and wet-conditions training."
-    },
-    {
-      question: "Can absolute beginners join?",
-      answer: "Absolutely! Our 'Junior Mavericks' batch is specifically designed for children with zero prior experience. We focus on fun motor skill development, basic grip, stance, and hand-eye coordination before advancing to leather-ball play."
-    },
-    {
-      question: "Is the academy operational during the heavy Kolkata monsoon?",
-      answer: "Yes, 100%. We understand that Kolkata monsoons can wash out up to three months of critical training. That is why we built a fully-enclosed, air-conditioned indoor facility equipped with bowling machines, ensuring our pace battery and batsmen keep training regardless of the weather outside."
+      question: "Is the academy operational during the monsoon?",
+      answer: "Yes. Our facility includes a fully equipped, air-conditioned indoor net area that allows practice to continue completely uninterrupted regardless of the weather outside."
     }
   ];
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Header Animation
+      gsap.from(headerRef.current ? headerRef.current.children : [], {
+        scrollTrigger: {
+          trigger: headerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse"
+        },
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power3.out"
+      });
+
+      // FAQ Items Animation
+      gsap.from(".faq-item", {
+        scrollTrigger: {
+          trigger: faqListRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out"
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="py-24 bg-slate-50 border-t border-black/5 relative">
+    <section ref={containerRef} className="py-24 bg-slate-50 border-t border-black/5 relative z-10">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-red-600 font-semibold tracking-wider uppercase text-sm mb-3">Common Queries</h2>
-            <h3 className="text-3xl md:text-5xl font-display font-bold mb-6">Frequently Asked Questions</h3>
-          </motion.div>
+        <div ref={headerRef} className="text-center mb-16">
+          <h2 className="text-red-600 font-semibold tracking-wider uppercase text-sm mb-3">Common Queries</h2>
+          <h3 className="text-3xl md:text-5xl font-display font-bold mb-6 text-slate-900">Frequently Asked Questions</h3>
         </div>
 
-        <div className="space-y-4">
+        <div ref={faqListRef} className="space-y-4">
           {faqs.map((faq, index) => (
-            <motion.div 
+            <div 
               key={index}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-black/5 border border-black/10 rounded-2xl overflow-hidden"
+              className="faq-item bg-black/5 border border-black/10 rounded-2xl overflow-hidden"
             >
               <button 
                 onClick={() => setOpenIndex(index === openIndex ? null : index)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-black/5 transition-colors"
+                className="w-full flex items-center justify-between p-6 text-left hover:bg-black/5 transition-colors cursor-pointer"
               >
                 <span className="font-bold font-display text-lg text-slate-900">{faq.question}</span>
                 <HelpCircle className={`w-5 h-5 transition-transform duration-300 ${index === openIndex ? 'text-red-800 rotate-180' : 'text-slate-500'}`} />
@@ -72,7 +94,7 @@ export default function FAQ() {
                   {faq.answer}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
