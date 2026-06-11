@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Play, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { Play, ChevronLeft, ChevronRight, Quote, X } from 'lucide-react';
 
 export default function Testimonials() {
   const testimonials = [
@@ -10,7 +10,8 @@ export default function Testimonials() {
       role: "Academy Alumnus, U-19 State Player",
       text: "The biomechanical video analysis completely transformed my bowling action. Within six months, I added 10km/h to my pace while reducing injury risk. The coaches here don't just teach, they engineer athletes.",
       image: "assets/hero-cover/blogs-cover.jpg", // Using a placeholder for video thumbnail
-      isVideo: true
+      isVideo: true,
+      videoId: "OZGtRvYF-A4"
     },
     {
       id: 2,
@@ -26,11 +27,13 @@ export default function Testimonials() {
       role: "Club Cricketer",
       text: "The Elite 1-on-1 masterclasses are worth every penny. The ability to practice on turf wickets under floodlights mimicking real match pressure is something very few academies in West Bengal offer.",
       image: "assets/hero-cover/blogs-cover.jpg",
-      isVideo: true
+      isVideo: true,
+      videoId: "OZGtRvYF-A4"
     }
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
@@ -39,6 +42,29 @@ export default function Testimonials() {
   const prevTestimonial = () => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
+
+  // Close modal on escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsPlaying(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Prevent scroll when modal is open
+  useEffect(() => {
+    if (isPlaying) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isPlaying]);
 
   return (
     <section id="testimonials" className="py-24 bg-white relative overflow-hidden">
@@ -61,13 +87,13 @@ export default function Testimonials() {
           <div className="flex gap-4">
             <button
               onClick={prevTestimonial}
-              className="w-12 h-12 rounded-full border border-black/20 flex items-center justify-center hover:bg-black/10 hover:border-slate-900 transition-colors"
+              className="w-12 h-12 rounded-full border border-black/20 flex items-center justify-center hover:bg-black/10 hover:border-slate-900 transition-colors cursor-pointer"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
             <button
               onClick={nextTestimonial}
-              className="w-12 h-12 rounded-full border border-black/20 flex items-center justify-center hover:bg-black/10 hover:border-slate-900 transition-colors"
+              className="w-12 h-12 rounded-full border border-black/20 flex items-center justify-center hover:bg-black/10 hover:border-slate-900 transition-colors cursor-pointer"
             >
               <ChevronRight className="w-6 h-6" />
             </button>
@@ -85,13 +111,20 @@ export default function Testimonials() {
               className="grid grid-cols-1 lg:grid-cols-5 gap-0 rounded-2xl overflow-hidden bg-black/5 backdrop-blur-md shadow-xl border border-black/10"
             >
               {/* Media Section */}
-              <div className="lg:col-span-3 relative h-[300px] lg:h-full min-h-[400px]">
+              <div 
+                className="lg:col-span-3 relative h-[300px] lg:h-full min-h-[400px] cursor-pointer"
+                onClick={() => {
+                  if (testimonials[currentIndex].isVideo) {
+                    setIsPlaying(true);
+                  }
+                }}
+              >
                 <img
                   src={testimonials[currentIndex].image}
                   alt={testimonials[currentIndex].name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center group cursor-pointer transition-colors hover:bg-black/50">
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center group transition-colors hover:bg-black/50">
                   {testimonials[currentIndex].isVideo && (
                     <div className="w-20 h-20 bg-red-800 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_30px_rgba(153,27,27,0.4)]">
                       <Play className="w-8 h-8 text-white fill-current ml-1" />
@@ -122,6 +155,46 @@ export default function Testimonials() {
           </AnimatePresence>
         </div>
       </div>
+
+      {/* Video Modal Overlay */}
+      <AnimatePresence>
+        {isPlaying && testimonials[currentIndex].isVideo && testimonials[currentIndex].videoId && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-10 bg-black/90 backdrop-blur-md"
+            onClick={() => setIsPlaying(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl pointer-events-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <iframe
+                className="w-full h-full"
+                src={`https://www.youtube.com/embed/${testimonials[currentIndex].videoId}?autoplay=1`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+
+              {/* Close Button */}
+              <button
+                onClick={() => setIsPlaying(false)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/85 text-white flex items-center justify-center transition-colors cursor-pointer"
+                aria-label="Close video"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
