@@ -1,7 +1,59 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Clock, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+interface PostCardProps {
+  post: {
+    id: number;
+    title: string;
+    excerpt: string;
+    category: string;
+    readTime: string;
+    image: string;
+  };
+  className?: string;
+}
+
+const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    className={`group bg-black/5 backdrop-blur-md border border-black/10 rounded-2xl overflow-hidden hover:bg-black/10 transition-all pointer-events-auto flex flex-col h-full ${className}`}
+  >
+    <div className="aspect-[16/10] overflow-hidden relative shrink-0">
+      <img
+        src={post.image}
+        alt={post.title}
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+      />
+      <div className="absolute top-4 left-4 bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-red-600">
+        {post.category}
+      </div>
+    </div>
+
+    <div className="p-6 md:p-8 flex flex-col grow">
+      <div className="flex items-center gap-2 text-slate-500 text-xs font-medium mb-4">
+        <Clock className="w-4 h-4" />
+        <span>{post.readTime}</span>
+      </div>
+
+      <h4 className="text-xl font-display font-bold text-slate-900 mb-3 group-hover:text-red-800 transition-colors leading-tight">
+        {post.title}
+      </h4>
+
+      <p className="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed grow">
+        {post.excerpt}
+      </p>
+
+      <Link to="/blog" className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 group/btn mt-auto">
+        Read More
+        <ArrowRight className="w-4 h-4 text-red-600 group-hover/btn:translate-x-1 transition-transform" />
+      </Link>
+    </div>
+  </motion.div>
+);
 
 interface BlogProps {
   isHome?: boolean;
@@ -44,46 +96,6 @@ export default function Blog({ isHome }: BlogProps) {
   const prevPost = () => {
     setCurrentIndex((prev) => (prev - 1 + posts.length) % posts.length);
   };
-
-  const PostCard = ({ post, className = "" }: { post: any, className?: string }) => (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className={`group bg-black/5 backdrop-blur-md border border-black/10 rounded-2xl overflow-hidden hover:bg-black/10 transition-all pointer-events-auto flex flex-col h-full ${className}`}
-    >
-      <div className="aspect-[16/10] overflow-hidden relative shrink-0">
-        <img
-          src={post.image}
-          alt={post.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-        />
-        <div className="absolute top-4 left-4 bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-red-600">
-          {post.category}
-        </div>
-      </div>
-
-      <div className="p-6 md:p-8 flex flex-col grow">
-        <div className="flex items-center gap-2 text-slate-500 text-xs font-medium mb-4">
-          <Clock className="w-4 h-4" />
-          <span>{post.readTime}</span>
-        </div>
-
-        <h4 className="text-xl font-display font-bold text-slate-900 mb-3 group-hover:text-red-800 transition-colors leading-tight">
-          {post.title}
-        </h4>
-
-        <p className="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed grow">
-          {post.excerpt}
-        </p>
-
-        <Link to="/blog" className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 group/btn mt-auto">
-          Read More
-          <ArrowRight className="w-4 h-4 text-red-600 group-hover/btn:translate-x-1 transition-transform" />
-        </Link>
-      </div>
-    </motion.div>
-  );
 
   return (
     <section id="blog" className="py-24 bg-slate-50 border-t border-black/5">
