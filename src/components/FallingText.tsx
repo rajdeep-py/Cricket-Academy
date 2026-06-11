@@ -13,6 +13,7 @@ interface FallingTextProps {
   gravity?: number;
   mouseConstraintStiffness?: number;
   fontSize?: string;
+  boundarySelector?: string;
   children?: React.ReactNode;
 }
 
@@ -27,6 +28,7 @@ const FallingText = ({
   gravity = 1,
   mouseConstraintStiffness = 0.2,
   fontSize = '1rem',
+  boundarySelector,
   children
 }: FallingTextProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -72,13 +74,21 @@ const FallingText = ({
 
     const { Engine, Render, World, Bodies, Runner, Mouse, MouseConstraint } = Matter;
 
+    const parentContainer = boundarySelector 
+      ? (containerRef.current!.closest(boundarySelector) as HTMLElement || containerRef.current!)
+      : (containerRef.current!.closest('section') as HTMLElement || containerRef.current!);
+
     const containerRect = containerRef.current!.getBoundingClientRect();
-    const width = containerRect.width;
-    const height = containerRect.height;
+    const parentRect = parentContainer.getBoundingClientRect();
+    const width = parentRect.width;
+    const height = parentRect.height;
 
     if (width <= 0 || height <= 0) {
       return;
     }
+
+    const offsetX = containerRect.left - parentRect.left;
+    const offsetY = containerRect.top - parentRect.top;
 
     const engine = Engine.create();
     engine.world.gravity.y = gravity;
@@ -94,6 +104,14 @@ const FallingText = ({
       }
     });
 
+    if (canvasContainerRef.current) {
+      canvasContainerRef.current.style.position = 'absolute';
+      canvasContainerRef.current.style.left = `-${offsetX}px`;
+      canvasContainerRef.current.style.top = `-${offsetY}px`;
+      canvasContainerRef.current.style.width = `${width}px`;
+      canvasContainerRef.current.style.height = `${height}px`;
+    }
+
     const boundaryOptions = {
       isStatic: true,
       render: { fillStyle: 'transparent' }
@@ -108,8 +126,8 @@ const FallingText = ({
       const htmlElem = elem as HTMLElement;
       const rect = htmlElem.getBoundingClientRect();
 
-      const x = rect.left - containerRect.left + rect.width / 2;
-      const y = rect.top - containerRect.top + rect.height / 2;
+      const x = rect.left - parentRect.left + rect.width / 2;
+      const y = rect.top - parentRect.top + rect.height / 2;
 
       const body = Bodies.rectangle(x, y, rect.width, rect.height, {
         render: { fillStyle: 'transparent' },
@@ -128,12 +146,15 @@ const FallingText = ({
 
     wordBodies.forEach(({ elem, body }) => {
       elem.style.position = 'absolute';
-      elem.style.left = `${body.position.x - body.bounds.max.x + (body.bounds.max.x - body.bounds.min.x) / 2}px`;
-      elem.style.top = `${body.position.y - body.bounds.max.y + (body.bounds.max.y - body.bounds.min.y) / 2}px`;
+      const localX = body.position.x - offsetX;
+      const localY = body.position.y - offsetY;
+      const rect = elem.getBoundingClientRect();
+      elem.style.left = `${localX - rect.width / 2}px`;
+      elem.style.top = `${localY - rect.height / 2}px`;
       elem.style.transform = 'none';
     });
 
-    const mouse = Mouse.create(containerRef.current!);
+    const mouse = Mouse.create(parentContainer);
     const mouseConstraint = MouseConstraint.create(engine, {
       mouse,
       constraint: {
@@ -152,8 +173,8 @@ const FallingText = ({
     const updateLoop = () => {
       wordBodies.forEach(({ body, elem }) => {
         const { x, y } = body.position;
-        elem.style.left = `${x}px`;
-        elem.style.top = `${y}px`;
+        elem.style.left = `${x - offsetX}px`;
+        elem.style.top = `${y - offsetY}px`;
         elem.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad)`;
       });
       Matter.Engine.update(engine);
@@ -171,7 +192,7 @@ const FallingText = ({
       World.clear(engine.world, false);
       Engine.clear(engine);
     };
-  }, [effectStarted, gravity, wireframes, backgroundColor, mouseConstraintStiffness]);
+  }, [effectStarted, gravity, wireframes, backgroundColor, mouseConstraintStiffness, boundarySelector]);
 
   const handleTrigger = () => {
     if (!effectStarted && (trigger === 'click' || trigger === 'hover')) {

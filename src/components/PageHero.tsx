@@ -69,7 +69,13 @@ export default function PageHero({ title, subtitle, image }: PageHeroProps) {
           </div>
           
           <h1 className="hero-element text-5xl md:text-7xl font-black font-display leading-[1.1] mb-6 uppercase tracking-tighter drop-shadow-2xl text-slate-900">
-            {title}
+            <FallingText
+              text={title}
+              trigger="click"
+              fontSize="inherit"
+              mouseConstraintStiffness={0.3}
+              gravity={1.2}
+            />
           </h1>
         </div>
       </div>
