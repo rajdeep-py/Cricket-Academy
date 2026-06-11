@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, ArrowRight, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -326,12 +327,12 @@ export default function Programs({ isHome }: ProgramsProps) {
 
       {/* Full-screen GSAP/Apple-style Interactive Pricing Popup */}
       <AnimatePresence>
-        {selectedTier && (
+        {selectedTier && createPortal(
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-6 bg-slate-950/90 backdrop-blur-xl"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6 bg-slate-950/90 backdrop-blur-xl"
             onClick={() => setSelectedTier(null)}
           >
             <motion.div
@@ -383,7 +384,7 @@ export default function Programs({ isHome }: ProgramsProps) {
                       </div>
 
                       {/* Right: Storytelling Text Panel */}
-                      <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-slate-950 z-20 shrink-0">
+                      <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-slate-955 z-20 shrink-0">
                         <div className="max-w-md">
                           <span className="text-red-500 font-bold uppercase tracking-widest text-xs mb-3 block animate-item">
                             Section {sIdx + 1} of 4
@@ -416,7 +417,7 @@ export default function Programs({ isHome }: ProgramsProps) {
               </div>
 
               {/* Bottom controls panel */}
-              <div className="p-6 md:p-8 flex justify-between items-center border-t border-white/15 bg-slate-950/80 backdrop-blur-md z-30">
+              <div className="p-6 md:p-8 flex justify-between items-center border-t border-white/15 bg-slate-955/80 backdrop-blur-md z-30">
                 {/* Bullet Page Indicators */}
                 <div className="flex gap-2.5">
                   {selectedTier.slides.map((_, i) => (
@@ -451,7 +452,8 @@ export default function Programs({ isHome }: ProgramsProps) {
               </div>
 
             </motion.div>
-          </motion.div>
+          </motion.div>,
+          document.body
         )}
       </AnimatePresence>
     </section>

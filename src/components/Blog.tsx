@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Clock, ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export interface Post {
   id: number;
@@ -24,10 +21,7 @@ interface PostCardProps {
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post, onClick, className = "" }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
+  <div
     onClick={onClick}
     className={`blog-card group bg-black/5 backdrop-blur-md border border-black/10 rounded-2xl overflow-hidden hover:bg-black/10 transition-all pointer-events-auto flex flex-col h-full cursor-pointer ${className}`}
   >
@@ -61,7 +55,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onClick, className = "" }) =>
         <ArrowRight className="w-4 h-4 text-red-600 group-hover/btn:translate-x-1 transition-transform" />
       </div>
     </div>
-  </motion.div>
+  </div>
 );
 
 interface BlogProps {
@@ -92,7 +86,7 @@ export default function Blog({ isHome }: BlogProps) {
       excerpt: "Cricket is 70% mental. Learn how elite finishers stay calm and process information when the run rate climbs in the death overs.",
       category: "Sports Psychology",
       readTime: "6 min read",
-      image: "assets/hero-cover/home-cover.jpg",
+      image: "/assets/hero-cover/home-cover.jpg",
       content: [
         "In modern cricket, the difference between winning and losing often comes down to a few balls in the final over. When the crowd is roaring and the pressure is mounting, technical skill takes a backseat to mental clarity. The best finishers don't just react; they actively manage their psychological state.",
         "The first step is controlled breathing. High-stress situations trigger the 'fight or flight' response, causing shallow breathing and increased heart rate. Take slow, deep belly breaths between deliveries. This simple biofeedback technique lowers your heart rate and restores cognitive function, allowing you to read the bowler's intentions.",
@@ -106,7 +100,7 @@ export default function Blog({ isHome }: BlogProps) {
       excerpt: "Fast bowling is an incredibly demanding activity. Discover the exact pre-match and recovery nutrition plans used by our pace battery.",
       category: "Fitness & Diet",
       readTime: "5 min read",
-      image: "assets/hero-cover/contact-us-cover.png",
+      image: "/assets/hero-cover/contact-us-cover.png",
       content: [
         "Fast bowlers are the engines of a cricket team, subjecting their bodies to forces up to ten times their body weight during delivery. To sustain pace, prevent injury, and bounce back for consecutive spells, your nutritional foundation must be flawless. Here is how our elite pacers fuel their engines.",
         "Hydration is the single most critical factor. Dehydration of just 2% can lead to a 10% drop in bowling velocity and an increased risk of side strains. We recommend consuming at least 3-4 liters of water daily, supplemented with electrolyte formulations containing sodium and magnesium on match days to prevent muscle cramping.",
@@ -119,9 +113,6 @@ export default function Blog({ isHome }: BlogProps) {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const listContainerRef = useRef<HTMLDivElement>(null);
 
   const nextPost = () => {
     setCurrentIndex((prev) => (prev + 1) % posts.length);
@@ -154,52 +145,30 @@ export default function Blog({ isHome }: BlogProps) {
     };
   }, [selectedPost]);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Header Animation
-      gsap.from(headerRef.current ? headerRef.current.children : [], {
-        scrollTrigger: {
-          trigger: headerRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse"
-        },
-        opacity: 0,
-        y: 20,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "power3.out"
-      });
-
-      // Cards Grid/Scroll List Animation
-      gsap.from(".blog-card", {
-        scrollTrigger: {
-          trigger: listContainerRef.current,
-          start: "top 85%",
-          toggleActions: "play none none reverse"
-        },
-        opacity: 0,
-        y: 35,
-        duration: 0.8,
-        stagger: 0.12,
-        ease: "power2.out"
-      });
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={containerRef} id="blog" className="py-24 bg-slate-50 border-t border-black/5 relative z-10">
+    <section id="blog" className="py-24 bg-slate-50 border-t border-black/5 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div ref={headerRef} className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="max-w-2xl">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="max-w-2xl"
+          >
             <h2 className="text-red-600 font-semibold tracking-wider uppercase text-sm mb-3">Academy Insights</h2>
             <h3 className="text-4xl md:text-5xl font-display font-bold text-slate-900">Master the Theory of the Game</h3>
-          </div>
+          </motion.div>
 
           {isHome ? (
-            <div className="flex items-center gap-6">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="flex items-center gap-6"
+            >
               <div className="flex gap-4">
                 <button
                   onClick={prevPost}
@@ -220,17 +189,24 @@ export default function Blog({ isHome }: BlogProps) {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
-            </div>
+            </motion.div>
           ) : null}
         </div>
 
         {isHome ? (
-          <div ref={listContainerRef} className="relative overflow-hidden w-full h-full pb-8">
+          <div className="relative overflow-hidden w-full h-full pb-8">
             <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-8 no-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-              {posts.map((post) => (
-                <div key={post.id} className="min-w-[85vw] md:min-w-[400px] snap-center">
+              {posts.map((post, idx) => (
+                <motion.div 
+                  key={post.id} 
+                  initial={{ opacity: 0, y: 35 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, delay: idx * 0.12, ease: "easeOut" }}
+                  className="min-w-[85vw] md:min-w-[400px] snap-center"
+                >
                   <PostCard post={post} onClick={() => setSelectedPost(post)} />
-                </div>
+                </motion.div>
               ))}
             </div>
             <style>{`
@@ -240,9 +216,17 @@ export default function Blog({ isHome }: BlogProps) {
              `}</style>
           </div>
         ) : (
-          <div ref={listContainerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} onClick={() => setSelectedPost(post)} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {posts.map((post, idx) => (
+              <motion.div
+                key={post.id}
+                initial={{ opacity: 0, y: 35 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, delay: idx * 0.12, ease: "easeOut" }}
+              >
+                <PostCard post={post} onClick={() => setSelectedPost(post)} />
+              </motion.div>
             ))}
           </div>
         )}
@@ -250,7 +234,7 @@ export default function Blog({ isHome }: BlogProps) {
 
       {/* Full screen popup modal for detailed blog article */}
       <AnimatePresence>
-        {selectedPost && (
+        {selectedPost && createPortal(
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -267,14 +251,14 @@ export default function Blog({ isHome }: BlogProps) {
               onClick={(e) => e.stopPropagation()}
             >
               {/* Left Panel: Overview & Image */}
-              <div className="md:w-2/5 relative bg-slate-950 text-white flex flex-col justify-end min-h-[250px] md:min-h-0">
+              <div className="md:w-2/5 relative bg-slate-955 text-white flex flex-col justify-end min-h-[250px] md:min-h-0">
                 <div className="absolute inset-0">
                   <img
                     src={selectedPost.image}
                     alt={selectedPost.title}
                     className="w-full h-full object-cover opacity-60"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-955 via-slate-955/70 to-transparent" />
                 </div>
                 <div className="relative z-10 p-8 md:p-10 flex flex-col justify-end h-full">
                   <div>
@@ -335,7 +319,8 @@ export default function Blog({ isHome }: BlogProps) {
                 <X className="w-6 h-6" />
               </button>
             </motion.div>
-          </motion.div>
+          </motion.div>,
+          document.body
         )}
       </AnimatePresence>
     </section>

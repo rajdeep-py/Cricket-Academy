@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Play, ChevronLeft, ChevronRight, Quote, X } from 'lucide-react';
 import { gsap } from 'gsap';
@@ -108,7 +109,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section ref={containerRef} id="testimonials" className="py-24 bg-white relative overflow-hidden z-10 border-b border-black/5">
+    <section ref={containerRef} id="testimonials" className="py-24 bg-white relative overflow-hidden border-b border-black/5">
       {/* Background glow */}
       <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-red-800/10 rounded-full blur-[100px] transform translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
@@ -194,12 +195,12 @@ export default function Testimonials() {
 
       {/* Video Modal Overlay */}
       <AnimatePresence>
-        {isPlaying && testimonials[currentIndex].isVideo && testimonials[currentIndex].videoId && (
+        {isPlaying && testimonials[currentIndex].isVideo && testimonials[currentIndex].videoId && createPortal(
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-10 bg-black/90 backdrop-blur-md"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 bg-black/90 backdrop-blur-md"
             onClick={() => setIsPlaying(false)}
           >
             <motion.div
@@ -228,7 +229,8 @@ export default function Testimonials() {
                 <X className="w-6 h-6" />
               </button>
             </motion.div>
-          </motion.div>
+          </motion.div>,
+          document.body
         )}
       </AnimatePresence>
     </section>
